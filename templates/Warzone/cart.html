@@ -1,0 +1,37 @@
+{% for item in cart_items %}
+<div class="cart-item">
+    <!-- Top Row: Image, Name, Price, Subtotal -->
+    <div class="cart-item-top">
+        {% if item.feature_image %}
+            <img src="{{ item.feature_image }}" alt="{{ item.product.name }}" class="cart-item-image">
+        {% else %}
+            <div class="cart-item-image-placeholder"></div>
+        {% endif %}
+
+        <div class="cart-item-details">
+            <p class="cart-item-name">{{ item.product.title }}</p>
+            <p class="cart-item-price">Rs {{ item.product.discount_price|floatformat:2 }}</p>
+            <p class="cart-item-subtotal">Subtotal: Rs {{ item.subtotal|floatformat:2 }}</p>
+        </div>
+    </div>
+
+    <!-- Bottom Row: Quantity Update & Remove -->
+    <div class="cart-item-bottom">
+        <form method="post" action="{% url 'store:update_cart' item.product.slug %}" class="cart-update-form">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="cart-quantity-input">
+            <button type="submit" class="cart-update-btn">Update</button>
+        </form>
+        <a href="{% url 'store:remove_from_cart' item.product.slug %}" class="cart-remove-btn">Remove</a>
+    </div>
+</div>
+{% empty %}
+<p class="cart-empty">Your cart is empty.</p>
+{% endfor %}
+
+<hr class="cart-divider">
+
+<div class="cart-footer">
+    <p class="cart-total">Total: Rs {{ total_price|floatformat:2 }}</p>
+    <a href="{% url 'store:checkout' %}" class="checkout-btn">Proceed to Checkout</a>
+</div>

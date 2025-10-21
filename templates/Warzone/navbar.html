@@ -1,0 +1,404 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>CCTV Installation in Kathmandu, Nepal | CCTV Nepal - Security Camera</title>
+      <meta name="description" content="CCTV Nepal provides expert CCTV installation in Kathmandu and across Nepal. We offer security camera sales, setup, and maintenance services at affordable prices.">
+    
+    <!-- ✅ Meta Keywords -->
+    <meta name="keywords" content="CCTV installation Nepal, CCTV installation Kathmandu, security camera Nepal, CCTV service Nepal, CCTV setup Kathmandu">
+    
+    <!-- ✅ Canonical URL -->
+    <link rel="canonical" href="https://cctvnepal.com.np/">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'cf.png' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <meta property="og:title" content="CCTV Installation in Kathmandu, Nepal | CCTV Nepal">
+    <meta property="og:description" content="Professional CCTV installation and maintenance services in Kathmandu. Secure your home or business with CCTV Nepal.">
+    <meta property="og:image" content="{% static 'cf.png' %}">
+    <meta property="og:url" content="https://cctvnepal.com.np/">
+    <meta property="og:type" content="website">
+
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "CCTV Nepal",
+  "image": "https://cctvnepal.com.np/static/cf.png",
+  "@id": "https://cctvnepal.com.np/",
+  "url": "https://cctvnepal.com.np/",
+  "telephone": "+977-9812345678",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Kamaladi Rd",
+    "addressLocality": "Kathmandu",
+    "postalCode": "44600",
+    "addressCountry": "NP"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 27.7128,
+    "longitude": 85.3157
+  },
+  "description": "CCTV Nepal provides professional CCTV installation and maintenance services in Kathmandu, Nepal. Secure your home and business with reliable surveillance solutions.",
+  
+  "sameAs": [
+    "https://www.facebook.com/wilsoncctv/", 
+    
+  ]
+}
+</script>
+
+
+</head>
+<body>
+    <div class="discount-banner">
+        <div class="banner-message">Welcome to CCTV  Nepal</div>
+        <div class="banner-message">15 percent discount on all products</div>
+        
+        <div class="banner-message">Warning you are under video survalance</div>
+    </div>
+    <header class="header">
+        <div class="logo">
+            <a href="{% url 'store:home' %}" class="logo-text">
+                CCTV Nepal
+            </a>
+        </div>
+        <nav>
+            <ul class="navbar" id="navbar">
+                <li><a href="{% url 'store:product' %}">CCTV</a></li>
+                
+                <li><a href="{% url 'store:services'%}">Service</a></li>
+                <li><a href="{% url 'store:work'%}">Projects</a></li>
+                <li><a href="{% url 'store:about'%}">About</a></li>
+                <li><a href="{% url 'store:youtube'%}">Live</a></li>
+                
+            </ul>
+        </nav>
+        <ul class="navbar-icons">
+            <li>
+                <a href="{% url 'store:contact' %}" id="contact-icon" title="Contact">
+                    <i class="fas fa-phone"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'store:search_page' %}" id="search-icon" title="Search">
+                    <i class="fas fa-search"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="" id="cart-icon" title="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                        {% if cart_item_count > 0 %}
+                        <span class="cart-count">{{ cart_item_count }}</span>
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+    <div id="cart-overlay"></div>
+        <div id="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button style="margin-left:340px;margin-top:-50px;" id="close-cart">&times;</button>
+        </div>
+        <div id="cart-content">
+            <!-- Cart items will be loaded here via AJAX -->
+        </div>
+        </div>
+    <main>
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="row">
+            <!-- Logo Section -->
+            <div class="col">
+                <h1 class="logo-text">CCTV Nepal</h1>
+                <p>Your Safety, Our Priority.</p>
+            </div>
+            
+            <!-- Contact Information -->
+            
+            <div class="col">
+                <h4>Links
+                    <div class="underline"><span></span></div>
+                </h4>
+                <a href="/home"><p>Cameras</p></a>
+                <a href="/work"><p>Services</p></a>
+                <a href="/service"><p>projects</p></a>
+                <a href="/about"><p>about</p></a>
+                <a href="/about"><p>live</p></a>
+            </div>
+            <div class="col">
+                <h4>Office<div class="underline"><span></span></div></h4>
+                <p>Phone: 981-3203132</p>
+                <p>Email: 
+                    info.cctvnepal.com.np@gmail.com</p>
+                <p>Kamaladi, Kathmandu</p>
+            </div>
+            <div class="col">
+                <h4>NewsLetter<div class="underline"><span></span></div></h4>
+                <form>
+                    <i class ="far fa-envelope"></i>
+                    <input type="email" placeholder="Enter email id" required>
+                    <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                </form>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener">
+                        <i class="fab fa-facebook-f"></i>
+                        
+                        </a>
+                    <i class="fab fa-instagram"></i>
+                                        <a href="https://wa.me/9779813203132" target="_blank" class="whatsapp-link">
+                    <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            
+            
+            
+            
+            <!-- Location and Map -->
+            
+            
+            <!-- Quick Links -->
+            
+            
+        </div>
+        
+        <hr>
+        <p class="copyright">CCtv nepal . All Rights Are Reserved</p>
+        
+        {% comment %} <div class="footer-bottom">
+            <h1>Designed and Developed By</h1>
+            <h3>Hitzz</h3>
+        </div> {% endcomment %}
+
+    </footer>
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+</body>
+
+
+
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const messages = document.querySelectorAll('.banner-message');
+        let currentIndex = 0;
+
+        function showNextMessage() {
+            messages[currentIndex].style.display = 'none';
+            currentIndex = (currentIndex + 1) % messages.length;
+            messages[currentIndex].style.display = 'block';
+        }
+
+        messages[currentIndex].style.display = 'block';
+        setInterval(showNextMessage, 8000); // Match the duration with the CSS animation
+    });
+    document.getElementById('navbarDropdown').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default dropdown behavior
+        document.getElementById('drawer').classList.toggle('open');
+        document.getElementById('overlay').style.display = 'block'; // Show overlay
+    });
+    
+</script>
+<script>
+    const header = document.querySelector('.header');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 0) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const body = document.body;
+        const header = document.querySelector('header');
+        
+        let lastScroll = 0;
+        
+        window.addEventListener("scroll", () => {
+            const currentScroll = window.pageYOffset;
+    
+            if (currentScroll <= 0) {
+                body.classList.remove("scroll-up");
+            } else if (currentScroll > lastScroll && !body.classList.contains("scroll-down")) {
+                if (currentScroll > header.offsetHeight) {
+                    body.classList.remove("scroll-up");
+                    body.classList.add("scroll-down");
+                }
+            } else if (currentScroll < lastScroll && body.classList.contains("scroll-down")) {
+                body.classList.remove("scroll-down");
+                body.classList.add("scroll-up");
+            }
+    
+            lastScroll = currentScroll;
+        });
+    });
+    
+</script>
+<script>
+    const productsGrid = document.querySelector('.products-grid');
+    let isTouching = false;
+    let startX, scrollLeft;
+
+    productsGrid.addEventListener('touchstart', (e) => {
+        isTouching = true;
+        startX = e.touches[0].pageX - productsGrid.offsetLeft;
+        scrollLeft = productsGrid.scrollLeft;
+    });
+
+    productsGrid.addEventListener('touchend', () => {
+        isTouching = false;
+    });
+
+    productsGrid.addEventListener('touchmove', (e) => {
+        if (!isTouching) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - productsGrid.offsetLeft;
+        const walk = (x - startX) * 3; // Scroll speed
+        productsGrid.scrollLeft = scrollLeft - walk;
+    });
+    
+    const hamburger = document.getElementById('hamburger');
+    const navbar = document.getElementById('navbar');
+    const body = document.body;
+
+    hamburger.addEventListener('click', function () {
+        navbar.classList.toggle('show');
+
+        // Toggle scrolling
+        if (navbar.classList.contains('show')) {
+            header.style.backgroundColor = 'white';   // Change header color (example: light gray)
+        } else {
+            header.style.backgroundColor = ''; // Reset header color
+        }
+        
+        if (navbar.classList.contains('show')) {
+            
+            body.style.overflow = 'hidden'; // Disable scrolling
+        } else {
+            body.style.overflow = ''; // Re-enable scrolling
+        }
+    });
+
+
+    // Close navbar when clicking outside
+    window.addEventListener('click', function (event) {
+        if (!navbar.contains(event.target) && !hamburger.contains(event.target)) {
+            navbar.classList.remove('show');
+            body.style.overflow = ''; // Re-enable scrolling
+        }
+    });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const cartIcon = document.getElementById("cart-icon");
+  const cartDrawer = document.getElementById("cart-drawer");
+  const cartOverlay = document.getElementById("cart-overlay");
+  const closeCart = document.getElementById("close-cart");
+  const cartContent = document.getElementById("cart-content");
+
+  function openCart() {
+    cartDrawer.classList.add("active");
+    cartOverlay.classList.add("active");
+    loadCart();
+  }
+
+  function closeCartDrawer() {
+    cartDrawer.classList.remove("active");
+    cartOverlay.classList.remove("active");
+  }
+
+  function loadCart() {
+    fetch("{% url 'store:cart_detail' %}", {
+      headers: { "X-Requested-With": "XMLHttpRequest" }
+    })
+    .then(res => res.text())
+    .then(html => {
+      cartContent.innerHTML = html;
+    });
+  }
+
+  // Cart icon click opens drawer
+  if (cartIcon) {
+    cartIcon.addEventListener("click", function(e) {
+      e.preventDefault();
+      openCart();
+    });
+  }
+
+  if (closeCart) closeCart.addEventListener("click", closeCartDrawer);
+  if (cartOverlay) cartOverlay.addEventListener("click", closeCartDrawer);
+
+  // --- Handle "Add to Cart" button ---
+  const addToCartBtn = document.querySelector(".buy-button");
+
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener("click", function(e) {
+      e.preventDefault(); // prevent normal form submission
+
+      const form = this.closest("form");
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Update cart count if backend returns it
+        if (data.cart_count !== undefined) {
+          const cartCount = document.querySelector(".cart-count");
+          if (cartCount) {
+            cartCount.textContent = data.cart_count;
+          } else {
+            const span = document.createElement("span");
+            span.className = "cart-count";
+            span.textContent = data.cart_count;
+            cartIcon.appendChild(span);
+          }
+        }
+        // Open cart drawer
+        openCart();
+      })
+      .catch(err => console.error("Add to Cart error:", err));
+    });
+  }
+});
+</script>
+
+
+
+
+</html>

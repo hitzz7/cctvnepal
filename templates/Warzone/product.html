@@ -1,0 +1,223 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}Our Products{% endblock %}
+
+{% block content %}
+<style>
+  .products-wrapper {
+    display: flex;
+    max-width: 1200px;
+    margin: 100px 100px;
+    gap: 30px;
+    padding: 0 20px;
+  }
+
+  .category-sidebar {
+  width: 260px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease;
+}
+
+  .category-sidebar h2 {
+    margin-bottom: 18px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .category-sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .category-sidebar li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-family:"typo",sans-serif;
+  }
+
+  .category-sidebar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 20px;
+    font-family:"typo",sans-serif;
+  }
+
+  .category-sidebar a:hover {
+    color: #0097b2;
+  }
+
+  .products-section {
+    flex: 1;
+  }
+
+  .products-section h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 80px;
+  }
+  .child-category {
+  list-style: none;
+  margin: 8px 0 0 25px;
+  padding-left: 10px;
+  
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.child-category li {
+  margin-bottom: 6px;
+}
+.child-category a {
+  
+  font-size: 18px;
+}
+.child-link {
+  text-decoration: none;
+  color: #555;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.child-link:hover {
+  color: #0097b2;
+}
+
+
+  .card {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 10px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .category-sidebar a.active-category {
+    font-weight: bold;
+    color: black;  /* you can also change color */
+}
+
+  .card .image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .title {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    font-size: 16px;
+  }
+
+  .price {
+    color: #0097b2;
+    font-size: 15px;
+    margin-top: 5px;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .products-wrapper {
+      flex-direction: column;
+    }
+
+    .category-sidebar {
+      width: 100%;
+    }
+  }
+</style>
+<section class="partners">
+  <h2>Our Partners</h2>
+  <div class="partners-logos">
+    <a href="{% url 'store:product' %}?brand={{brand.hikvision}}">
+      <img src="{% static 'ezvis.png' %}" alt="Ezviz">
+    </a>
+    <a href="{% url 'store:product' %}?brand=hikvision">
+      <img src="{% static 'hk.png' %}" alt="Hikvision">
+    </a>
+    <a href="{% url 'store:product' %}?brand=HiLook">
+      <img src="{% static 'hilook.avif' %}" alt="HiLook">
+    </a>
+  </div>
+</section>
+<div class="products-wrapper">
+  <!-- Sidebar -->
+  <div class="category-sidebar">
+    <h2>Categories</h2>
+      <ul>
+  <li>
+    <a href="{% url 'store:product' %}" 
+       class="{% if not selected_category %}active-category{% endif %}">
+      All
+    </a>
+  </li>
+
+  {% for category in categories %}
+    <li>
+      <a href="{% url 'store:product' %}?category={{ category.id }}" 
+         class="{% if selected_category and selected_category.id == category.id %}active-category{% endif %}">
+        {{ category.name }}
+      </a>
+
+      {% if selected_category and selected_category.id == category.id and child_categories %}
+        <ul class="child-category">
+          {% for child in child_categories %}
+            <li>
+              <a href="{% url 'store:product' %}?category={{ child.id }}"
+                 class="{% if request.GET.category == child.id|stringformat:"s" %}active-category{% endif %}">
+                {{ child.name }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+  </div>
+
+  <!-- Products -->
+  <div class="products-section">
+    <h2>Shop</h2>
+    <div class="products-grid">
+      {% for product in products %}
+      <a href="{% url 'store:product_detail' product.slug %}">
+        <div class="card">
+          <div class="image">
+            {% for image in product.images.all %}
+              {% if image.is_feature %}
+                <img src="{{ image.image.url }}" alt="{{ product.title }} Featured Image">
+              {% endif %}
+            {% endfor %}
+          </div>
+          <span class="title">{{ product.title }}</span>
+          <span class="price">RS {{ product.price }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

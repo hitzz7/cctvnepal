@@ -1,0 +1,65 @@
+{% extends './navbar.html' %}  {# Or your layout file like navbar.html #}
+{% load static %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+
+<h1 class="live-heading">YouTube Live Stream</h1>
+<div id="live-stream" class="video-container"></div>
+
+<style>
+    /* Heading styling */
+    .live-heading {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        color: #333;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        font-family: 'Urban', sans-serif;
+    }
+
+    /* Video container styling */
+    .video-container {
+        max-width: 1400px; /* increased width */
+        width: 100%;
+        height: 100%; /* almost full width on smaller screens */
+        margin: 40px auto;    /* center horizontally */
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        background-color: #000;
+    }
+
+    /* Make iframe responsive */
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* "Not live" message styling */
+    .not-live {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 600;
+        background-color: #ff4d4d;
+        text-align: center;
+        padding: 20px;
+        border-radius: 12px;
+    }
+</style>
+
+
+{% endblock %}

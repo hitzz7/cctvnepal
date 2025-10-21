@@ -1,0 +1,282 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}Product Detail{% endblock %}
+
+{% block content %}
+<style>
+    .product-detail-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+        padding: 60px;
+        justify-content: center;
+        margin-top:60px;
+    }
+    .product-description {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        font-size: 18px;
+        line-height: 1.8;
+        color: #666;
+    }
+
+    .product-image-card {
+        width: 100%;
+        max-width: 500px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 0px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #F1F1F1;
+    }
+
+    .product-image {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .product-image img {
+        width: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-details {
+        width: 45%;
+        max-width: 600px;
+        font-family: 'Itronz', sans-serif;
+    }
+
+    .product-details h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #333;
+        font-family: 'Calton', sans-serif;
+    }
+     .product-details h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+        font-family: 'typo', sans-serif;
+    }
+
+    .product-details p {
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .product-details .price {
+        font-size: 32px;
+        font-weight: bold;
+        color: #e53935;
+        text-decoration: line-through;
+        margin-bottom: 20px;
+        font-family:"helvetica",sans-serif;
+    }
+    .product-details .price1 {
+        font-size: 32px;
+        font-weight: bold;
+        color: #e53935;
+        font-family:"helvetica",sans-serif;
+        
+        margin-bottom: 20px;
+    }
+
+    .product-details .quantity {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top:40px;
+        margin-bottom: 20px;
+    }
+
+    .product-details .quantity input {
+        width: 50px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .product-details .buy-button {
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: #D0FF71;
+        color: black;
+        font-size:15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 0px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+        font-family: 'helvetica', sans-serif;
+    }
+
+    .product-details .buy-button:hover {
+        background-color: #007a8d;
+    }
+    
+    .product-description {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        font-size: 18px;
+        line-height: 1.8;
+        color: #666;
+    }
+
+    .additional-images {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .additional-images img {
+        width: 30%;
+        max-width: 150px;
+        border-radius: 8px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .additional-images img:hover {
+        transform: scale(1.05);
+    }
+    @media (max-width: 480px) {
+    .product-detail-section {
+        flex-direction: column;
+        padding: 20px;
+        gap: 30px;
+    }
+
+    .product-image-card, 
+    .product-details {
+        width: 90%;
+        max-width: 100%;
+    }
+
+    .product-details h1 {
+        font-size: 32px;
+    }
+
+    .product-details h2 {
+        font-size: 20px;
+    }
+
+    .product-details p {
+        font-size: 16px;
+    }
+
+    .product-details .price,
+    .product-details .price1 {
+        font-size: 24px;
+    }
+
+    .product-details .quantity input {
+        width: 40px;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .product-details .buy-button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .additional-images img {
+        width: 45%;
+        max-width: 120px;
+    }
+}
+
+</style>
+
+
+<!-- Cart Drawer -->
+<!-- Cart Drawer -->
+
+
+
+<div class="product-detail-section">
+    <div class="product-image-card">
+        <div class="product-image">
+            <!-- Main Featured Image -->
+            {% for image in images %}
+                {% if image.is_feature %}
+                    <img id="main-image" src="{{ image.image.url }}" alt="{{ product.title }}">
+                {% endif %}
+            {% endfor %}
+
+            <!-- Additional Images / Thumbnails -->
+            <div class="additional-images">
+                {% for image in images %}
+                    <img class="thumbnail" src="{{ image.image.url }}" alt="{{ product.title }}">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-details">
+        <h1>{{ product.title }}</h1>
+        <h2><strong>Category:</strong> {{ product.category.name }}</h2>
+
+        <!-- Product Category -->
+        
+
+        <p>{{ product.description }}</p>
+        {% if product.pdf_document %}
+            <p style="font-weight: bold;">Detailed Product Information</p>
+            <a href="{{ product.pdf_document.url }}" download>
+                Download PDF <i class="fa fa-download" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+
+        <!-- Quantity input -->
+        
+        
+        
+        <div class="price">Rs {{ product.price }}</div>
+        <div class="price1">Rs {{ product.discount_price }}</div>
+        <form method="POST" action="{% url 'store:add_to_cart' product.id %}" style="display:flex; flex-direction:column;align-items: flex-start;  gap:10px;">
+            {% csrf_token %}
+            <div class="quantity">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="99">
+            </div>
+            <button id="cart-icon" class="buy-button" type="submit">Add to Cart</button>
+        </form>
+    </div>
+</div>
+<script>
+    // Select main image
+    const mainImage = document.getElementById('main-image');
+
+    // Select all thumbnails
+    const thumbnails = document.querySelectorAll('.thumbnail');
+
+    // Add click event to each thumbnail
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', () => {
+            mainImage.src = thumbnail.src;
+        });
+    });
+
+    
+</script>
+
+
+
+{% endblock %}

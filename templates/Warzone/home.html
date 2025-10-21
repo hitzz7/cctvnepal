@@ -1,0 +1,474 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}Work{% endblock %}
+
+{% block content %}
+<div class="bg-image">
+    <video controls autoplay muted loop>
+        <source src="{% static 'camera1.mp4' %}" type="video/mp4" alt="CCTV Nepal Background Video">
+        Your browser does not support the video tag.
+    </video>
+    <div class="social-media">
+        
+        <a href="https://wa.me/9779813203132" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        
+        
+    </div>
+    <div class="text-overlay">
+        
+          <div class="google-review">
+            <span class="rating-text">Excellent 4.5 out of 5</span>
+            <span class="stars">
+            <i class="fas fa-star"></i>
+            
+            </span>
+            
+        </div>
+            
+        <h1>
+          Professional CCTV Installation <br>
+          And Security Solutions
+        </h1>
+            {% comment %} <h1>24/7 Surveillance for Peace of Mind</h1> {% endcomment %}
+        <p>We provide cutting-edge CCTV solutions</p>
+        <button class="button">Install cctv Now</button>
+        <div class="sales-label"><i class="fas fa-shield-alt" style="color:silver; margin-right:8px;"></i> Trusted by 100+ Business</div>
+        
+        
+    </div>
+    <div class="bottom-left-text">
+        <p>CCTV Nepal </p>
+    </div>
+</div>
+
+    
+<div class="products-section" style="margin-top:50px">
+    <h2>CCtV Cameras</h2>
+    {% comment %} <div class="categories-grid">
+        {% for category in categories %}
+        <div class="category-card">
+            {{ category.name }}
+        </div>
+        {% endfor %}
+    </div> {% endcomment %}
+    <div class="products-grid">
+        {% for product in products %}
+        <a href="{% url 'store:product_detail' product.slug %}">
+        <div class="card">
+            <div class="image">
+                {% for image in product.images.all %}
+                    {% if image.is_feature %}
+                        
+                            <img src="{{ image.image.url }}" alt="{{ product.title }} Featured Image">
+                        
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <span class="title">{{ product.title }}</span>
+            <span class="price">RS {{ product.price }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="button" style="margin-left:900px;">View all Cameras</button>
+</div>
+<section class="partners">
+  <h2>Our Partners</h2>
+  <div class="partners-logos">
+    <a href="{% url 'store:product' %}?brand=hikvision">
+      <img src="{% static 'hk.png' %}" alt="Hikvision">
+    </a>
+    <a href="{% url 'store:product' %}?brand={{brand.hikvision}}">
+      <img src="{% static 'ezvis.png' %}" alt="Ezviz">
+    </a>
+    <a href="{% url 'store:product' %}?brand=hikvision">
+      <img src="{% static 'hk.png' %}" alt="Hikvision">
+    </a>
+    <a href="{% url 'store:product' %}?brand=HiLook">
+      <img src="{% static 'hilook.avif' %}" alt="HiLook">
+    </a>
+  </div>
+</section>
+<div class="services-section">
+    <h2>Our Services</h2>
+    <div class="service-box">
+        <img src="{% static 'instal.jpg' %}" alt="CCTV Nepal Services" class="service-image">
+        <div class="service-text">
+            <h3>Services for CCTV Installment</h3>
+            <p>
+                Our services include CCTV cabling, camera installation and calibration, DVR/NVR setup, remote viewing via internet or 3G, and mobile monitoring for vehicles, ensuring comprehensive surveillance solutions for homes, businesses, and transport.
+            </p>
+            <button class="button">View our Services</button>
+        </div>
+    </div>
+    
+   
+    
+    
+</div>
+<section class="cctv-services">
+  
+  <div class="services-grid">
+
+    <div class="cctv-box">
+      <img src="{% static 'installation.png' %}" alt="Installation">
+      <h3>Installation</h3>
+      <p>Professional setup of high-quality CCTV cameras for homes and businesses.</p>
+    </div>
+
+    <div class="cctv-box">
+      <img src="{% static 'tools.png' %}" alt="Maintenance">
+      <h3>Maintenance</h3>
+      <p>Regular system checks and updates to keep your surveillance running smoothly.</p>
+    </div>
+
+    <div class="cctv-box">
+      <img src="{% static 'support.png' %}" alt="Support">
+      <h3>Support</h3>
+      <p>24/7 support for troubleshooting and resolving any technical issues.</p>
+    </div>
+
+    <div class="cctv-box">
+      <img src="{% static 'tools.png' %}" alt="System Upgrades">
+      <h3>System Upgrades</h3>
+      <p>Upgrade your security system with the latest camera and software technology.</p>
+    </div>
+
+  </div>
+</section>
+<section class="pricing-section">
+  <h2>CCTV Installation Packages</h2>
+  <div class="pricing-container">
+    
+    {% for package in packages %}
+      <div class="pricing-card {% if package.featured %}featured{% endif %}">
+        <h3>{{ package.name }}</h3>
+        <p class="price">Rs {{ package.price }}<span> / {{ package.billing_type|default:"one-time" }}</span></p>
+        <ul>
+          {% for line in package.features.splitlines %}
+            {% if line %}
+              <li>{{ line }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <a href="{% url 'store:contact' %}" class="btn">Contact Us</a>
+      </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+
+    
+    
+
+
+    {% comment %} <div class="work-section">
+        <h2>Our Projects</h2>
+        <div class="projects-grid">
+            {% for project in projects %}
+            <a href="{% url 'store:project_detail' project.id %}">
+            <div class="project-card">
+                <div class="image">
+                    {% for image in project.images.all %}
+                        {% if image.is_feature %}
+                            
+                                <img src="{{ image.image.url }}" alt="{{ project.title }} Featured Image">
+                            
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="overlay">
+                    <h3>{{ project.title }}</h3>
+                    
+                </div>
+            </div>
+            {% empty %}
+            <p>No projects available at the moment.</p>
+            {% endfor %}
+        </div>
+        <button class="button" style="margin-left:900px;">view all projects</button>
+    </div>
+     {% endcomment %}
+    <section class="image-section">
+  <h2>Our Gallery</h2>
+  <div class="image-grid">
+    {% for project in projects %}
+    <a href="{% url 'store:project_detail' project.id %}">
+    <div class="image-card">
+      {% for image in project.images.all %}
+                        {% if image.is_feature %}
+                            
+                                <img src="{{ image.image.url }}" alt="{{ project.title }} Featured Image">
+                            
+                        {% endif %}
+                    {% endfor %}
+      <div class="overlay">
+        <h3>{{ project.title }}</h3>
+        <p>{{ image.description }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+    
+</main>
+
+
+<main class="completed-projects">
+    {% comment %} <div class="project-stats">
+        <div class="stat-item">
+            <h1>Projects Completed</h1>
+            <i class="fas fa-check-circle"></i>
+            <span>100+</span>
+        </div>
+        <div class="stat-item">
+            <h1>Years of Experience</h1>
+            <i class="fas fa-clock"></i>
+            <span>12yrs</span>
+        </div>
+        <div class="stat-item">
+            <h1>Team Members</h1>
+            <i class="fas fa-users"></i>
+            <span>15+</span>
+        </div>
+    </div> {% endcomment %}
+    
+    <h2>Projects completed</h2>
+    <div class="logo-marquee">
+    <div class="logo-track">
+        <div class="company-logo">
+        <img src="{% static 'oliz.webp' %}" alt="Company 1">
+        </div>
+        {% comment %} <div class="company-logo">
+        <img src="{% static 'embasy.png' %}" alt="Company 2">
+        </div> {% endcomment %}
+        {% comment %} <div class="company-logo">
+        <img src="{% static 'bhatb.png' %}" alt="Company 3">
+        </div> {% endcomment %}
+        
+        <!-- Duplicate logos for seamless loop -->
+        <div class="company-logo">
+        <img src="{% static 'byd.png' %}" alt="Byd">
+        </div>
+        {% comment %} <div class="company-logo">
+        <img src="{% static 'nt.png' %}" alt="Company 2">
+        </div> {% endcomment %}
+        <div class="company-logo">
+        <img src="{% static 'vianet.png' %}" alt="Vianet">
+        </div>
+        <div class="company-logo">
+        <img src="{% static 'dhl.svg' %}" alt="DHL">
+        </div>
+        <div class="company-logo">
+        <img src="{% static 'oliz.webp' %}" alt="Oliz">
+        </div>
+        {% comment %} <div class="company-logo">
+        <img src="{% static 'embasy.png' %}" alt="Company 2">
+        </div> {% endcomment %}
+        {% comment %} <div class="company-logo">
+        <img src="{% static 'bhatb.png' %}" alt="Company 3">
+        </div> {% endcomment %}
+        
+        <!-- Duplicate logos for seamless loop -->
+        <div class="company-logo">
+        <img src="{% static 'byd.png' %}" alt="Byd">
+        </div>
+        {% comment %} <div class="company-logo">
+        <img src="{% static 'nt.png' %}" alt="Company 2">
+        </div> {% endcomment %}
+        <div class="company-logo">
+        <img src="{% static 'vianet.png' %}" alt="Vianet  ">
+        </div>
+        <div class="company-logo">
+        <img src="{% static 'dhl.svg' %}" alt="DHL">
+        </div>
+    </div>
+</div>
+
+    
+</main>
+{% comment %} <div class="testimonial-section">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial-container">
+        <div class="testimonial-card">
+            <img src="{% static 'nt.png' %}" alt="Client Logo" class="client-logo">
+            <p>"CCTV Nepal provided exceptional service and exceeded our expectations. Their dedication and attention to detail were remarkable."</p>
+            <h4>Sunil Maskay</h4>
+            <div class="client-title">Managing Director</div>
+        </div>
+        <div class="testimonial-card">
+            <img src="{% static 'bhatb.png' %}" alt="Client Logo" class="client-logo">
+            <p>"The team at CCTV Nepal is professional, skilled, and highly dependable. We've seen a significant improvement in our operations thanks to their efforts."</p>
+            <h4>Min Bahadur Gurung</h4>
+            <div class="client-title">Founder, Bhatbhateni Store</div>
+        </div>
+        <div class="testimonial-card">
+            <img src="{% static 'byd.png' %}" alt="Client Logo" class="client-logo">
+            <p>"CCTV Nepal went above and beyond in delivering top-quality products. We highly recommend their services to anyone looking for reliable results."</p>
+            <h4>Akash Sherestha</h4>
+            <div class="client-title">Sales Person</div>
+        </div>
+    </div>
+</div> {% endcomment %}
+<section class="t-section">
+  <h2>What Our Clients Say</h2>
+  <div class="t-carousel-wrapper">
+    <button class="prev-btn">&#10094;</button>
+
+    <div class="t-carousel">
+      <div class="t-card">
+        <img src="{% static 'nt.png' %}" alt=" Nepal Telecom" class="client-logo">
+        <p>"CCTV Nepal provided exceptional service and exceeded our expectations. Their dedication and attention to detail were remarkable."</p>
+        <h4>Sunil Maskay</h4>
+            <div class="client-title">Managing Director</div>
+      </div>
+      <div class="t-card">
+        <img src="{% static 'bhatb.png' %}" alt="BhatBhateni Super Market" class="client-logo">
+            <p>"The team at CCTV Nepal is professional, skilled, and highly dependable. We've seen a significant improvement in our operations thanks to their efforts."</p>
+            <h4>Min Bahadur Gurung</h4>
+            <div class="client-title">Founder, Bhatbhateni Store</div>
+      </div>
+      
+      <div class="t-card">
+        <img src="{% static 'byd.png' %}" alt="Byd logo" class="client-logo">
+            <p>"CCTV Nepal went above and beyond in delivering top-quality products. We highly recommend their services to anyone looking for reliable results."</p>
+            <h4>Akash Sherestha</h4>
+            <div class="client-title">Sales Person</div>
+      </div>
+      <div class="t-card">
+        <img src="{% static 'vianet.png' %}" alt="Vianet" class="client-logo">
+        <p>"Vianet Nepal experienced seamless installation and top-notch support from CCTV Nepal. Highly recommended!"</p>
+        <h4>Suman Shrestha</h4>
+        <div class="client-title">IT Manager, Vianet</div>
+      </div>
+
+      <div class="t-card">
+        <img src="{% static 'dhl.png' %}" alt="DHL" class="client-logo">
+        <p>"CCTV Nepal helped improve our security operations efficiently. Reliable service and professional team."</p>
+        <h4>Anil KC</h4>
+        <div class="client-title">Logistics Head, DHL</div>
+      </div>
+
+      <div class="t-card">
+        <img src="{% static 'oliz.webp' %}" alt="Oliz Store" class="client-logo">
+        <p>"We are impressed with CCTV Nepal's dedication and timely support. Our store is much safer now."</p>
+        <h4>Lokesh Oli</h4>
+        <div class="client-title">Owner, Oliz Store</div>
+      </div>
+      <!-- Add more testimonials if needed -->
+    </div>
+
+    <button class="next-btn">&#10095;</button>
+  </div>
+</section>
+
+
+<section class="stats-section">
+  <div class="stats-wrapper">
+
+    <div class="stat-box">
+      <img src="{% static 'verification.png' %}" alt="Projects Completed">
+      <div class="stat-content">
+        <h3 class="counter" data-target="+250">100</h3>
+        <p>Projects Completed</p>
+      </div>
+    </div>
+
+    <div class="stat-box">
+      <img src="{% static 'people.png' %}" alt="Team Members">
+      <div class="stat-content">
+        <h3 class="counter" data-target="20">20</h3>
+        <p>Team Members</p>
+      </div>
+    </div>
+
+    <div class="stat-box">
+      <img src="{% static 'quality.png' %}" alt="Years on Market">
+      <div class="stat-content">
+        <h3 class="counter" data-target="10">10</h3>
+        <p>Years on Market</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="services-section">
+    <h2>About us</h2>
+    <div class="service-box">
+        <img src="{% static 'cf.png' %}" alt="CCTV Nepal logo" class="service-image">
+        <div class="service-text">
+            <h3>About us</h3>
+            <p>
+                CCTV NEPAL provides high-quality electronics and telecommunication solutions, offering trade, repair, and exceptional customer service. Known for innovation and reliability, it serves individuals, businesses, and organizations. Continuously updating its products, CCTV NEPAL aims to enhance modern lifestyles while building strong relationships and expanding its reach globally through trusted distribution networks.
+            </p>
+            <button class="button">More about Us</button>
+        </div>
+    </div>
+    
+   
+    
+    
+</div>
+<section class="map-section">
+  <h2>Our Location</h2>
+  <div class="map-container" style="width:100%; height:450px;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.1234567890!2d85.3191549!3d27.7075944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190bd2a2f935%3A0x4de2dd8cfdb08d1d!2sKamaladi%20Rd%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1690000000000!5m2!1sen!2snp"
+      width="100%"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+<h6>CCTV Nepal</h6>
+<script>
+        const API_KEY = "{{ YOUTUBE_API_KEY }}";
+        const CHANNEL_ID = "{{ CHANNEL_ID }}";
+
+        fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&eventType=live&key=${API_KEY}`)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById("live-stream");
+                if (data.items && data.items.length > 0) {
+                    const videoId = data.items[0].id.videoId;
+                    container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                } else {
+                    container.innerHTML = `<div class="not-live">The channel is not live right now.</div>`;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById("live-stream").innerHTML = `<div class="not-live">Error loading live stream.</div>`;
+            });
+    </script>
+
+    <script>
+const carousel = document.querySelector('.t-carousel');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+
+// Width of one card including gap
+const cardStyle = getComputedStyle(document.querySelector('.t-card'));
+const cardWidth = document.querySelector('.t-card').offsetWidth + parseInt(cardStyle.marginRight);
+
+// Slide next
+nextBtn.addEventListener('click', () => {
+  carousel.scrollLeft += cardWidth;
+});
+
+// Slide previous
+prevBtn.addEventListener('click', () => {
+  carousel.scrollLeft -= cardWidth;
+});
+</script>
+
+
+    
+
+{% endblock %}

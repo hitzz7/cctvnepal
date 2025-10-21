@@ -1,0 +1,92 @@
+{% extends './navbar.html' %}  {# Or your layout file like navbar.html #}
+{% load static %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<style>
+  .search-container {
+    max-width: 600px;
+    margin: 100px auto 20px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .search-container input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 0px;
+  }
+
+  .search-container button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color:#D0FF71;
+    color: black;
+    font-weight:bold;
+
+    border: none;
+    border-radius: 0px;
+    margin-left:20px;
+    font-family:"Itronz",sans-serif;  
+    cursor: pointer;
+  }
+
+  .search-container button:hover {
+    background-color:black;
+  }
+
+  .results {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .product-item {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+  }
+
+  .product-item h3 {
+    margin-bottom: 10px;
+    color: #222;
+  }
+
+  .product-item p {
+    color: #555;
+  }
+</style>
+
+<div class="search-container">
+  <form method="get" action="{% url 'store:search_products' %}" style="display: flex; width: 100%;">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search products...">
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+<div class="results">
+  <h2>Search Results for "{{ query }}"</h2>
+
+  {% if products %}
+    {% for product in products %}
+      <div class="card">
+            <div class="image">
+                {% for image in product.images.all %}
+                    {% if image.is_feature %}
+                        
+                            <img src="{{ image.image.url }}" alt="{{ product.title }} Featured Image">
+                        
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <span class="title">{{ product.title }}</span>
+            <span class="price">RS {{ product.price }}</span>
+        </div>
+    {% endfor %}
+  {% else %}
+    <p>No products found.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}Our Work{% endblock %}
+
+{% block content %}
+<style>
+    .work-section {
+        padding: 20px;
+        text-align: center;
+        margin-top:60px;
+    }
+    
+    .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 100px;
+        justify-items:center;
+        margin-top: 60px;
+    }
+    
+    .project-card {
+        width:100%;
+        max-width: 990px;
+    height: 500px;
+    background: rgb(236, 236, 236);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+                rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
+                rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    padding: 0px;
+    position:relative;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .project-card .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius:0px;
+    
+    }
+    .project-card .overlay{
+        position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     /* Semi-transparent overlay */
+    color: white;
+    font-size: 18px;
+    font-family: 'Calton', sans-serif;
+    text-align: center;
+    pointer-events: none;
+
+    }
+    
+    .project-card .details {
+        padding: 10px;
+    }
+    
+    .project-card .overlay h3 {
+        margin: 0 0 10px;
+        font-size: 68px;
+        letter-spacing:10px;
+    }
+    
+    .project-card .details p {
+        font-size: 14px;
+        color: #666;
+    }
+    h2 {
+        text-align: center; /* Centers the text horizontally */
+        margin-top:40px;
+        /* Optional: Add some spacing around the heading */
+    }
+    
+    
+
+</style>
+<div class="work-section">
+    <h2>Our Projects</h2>
+    <div class="projects-grid">
+        {% for project in projects %}
+        <a href="{% url 'store:project_detail' project.id %}">
+        <div class="project-card">
+            <div class="image">
+                {% for image in project.images.all %}
+                    {% if image.is_feature %}
+                        
+                            <img src="{{ image.image.url }}" alt="{{ project.title }} Featured Image">
+                        
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="overlay">
+                <h3>{{ project.title }}</h3>
+                
+            </div>
+        </div>
+        {% empty %}
+        <p>No projects available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+    <h2 >Projects completed</h2>
+    <div class="project-logos">
+        
+        <div class="company-logo">
+            <img src="{% static 'bb.png' %}" alt="Company 1">
+        </div>
+        <div class="company-logo">
+            <img src="{% static 'gand.png' %}" alt="Company 2">
+        </div>
+       
+    </div>
+{% endblock %}

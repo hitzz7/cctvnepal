@@ -1,0 +1,238 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f4f8;
+    }
+
+    .contact-section {
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+
+    .contact-section h1 {
+        font-size: 42px;
+        color: #222;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .contact-section p {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+
+    .contact-details {
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 60px;
+        margin-top:40px;
+        font-family:"Itronz",sans-serif;
+    }
+
+    .contact-details span {
+        display: inline-block;
+        margin: 0 20px;
+        
+        color: #333;
+    }
+
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 0px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+        font-size:30px;
+        font-family: "Calton",sans-serif;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 95%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 0px;
+        font-size: 16px;
+        background: #fafafa;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #0097b2;
+        box-shadow: 0 0 6px rgba(0, 151, 178, 0.5);
+        outline: none;
+    }
+
+    .form-group label {
+        margin-bottom: 8px;
+        display: block;
+        font-weight: bold;
+        color: #444;
+    }
+
+    .submit-button {
+        font-size: 18px;
+        padding: 10px 24px;
+        background-color: #D0FF71;
+        color: black;
+        font-weight: bold;
+        border: none;
+        border-radius: 0px;
+        width: auto;
+        cursor: pointer;
+        display: inline-block;
+        align-self: center;
+        font-family:'itronz',sans-serif;
+        transition: background-color 0.3s ease;
+        
+    }
+
+    .submit-button:hover {
+        background-color: black;
+        color:white;
+    }
+
+    .form-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-container form input,
+    .form-container form textarea {
+        font-family: "Itronz",sans-serif;
+    }
+
+    /* Styling for the office info section */
+    .contact-header {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #333;
+        color: white;
+        padding: 10px 0;
+        margin-top: 30px;
+    }
+
+    .contact-header div {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        
+    }
+
+    .contact-header div i {
+        margin-right: 8px;
+    }
+
+</style>
+<style>
+.map-section {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #f5f5f5;
+}
+
+.map-section h2 {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  font-family: 'Poppins', sans-serif;
+  color: #222;
+}
+
+.map-container {
+  max-width: 1500px;
+  margin: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .map-section h2 {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-section h2 {
+    font-size: 36px;
+  }
+}
+</style>
+
+<!-- Contact Section -->
+<div class="contact-section" style="margin-top:60px">
+    <h2>Contact Us</h2>
+
+    <!-- Added office details in a horizontal row -->
+    <div class="contact-details">
+        <span><strong>Location</strong><br> Kamaladi, Kathmandu</span>
+        <span><strong>Email</strong><br>info.cctvnepal.com.np@gmail.com</span>
+        <span><strong>Phone</strong><br> 
+981-3203132</span>
+    </div>
+
+    <h2>We'd love to hear from you! Please fill out the form below and we'll get back to you shortly.</h2>
+    <div class="form-container">
+        <form action="{% url 'store:contactc' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Phone Number</label>
+                <input type="text" id="mobile" name="mobile" placeholder="Your Phone Number" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Message</label>
+                <textarea id="description" name="description" rows="5" placeholder="Tell us more about your project" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Get Started</button>
+        </form>
+    </div>
+</div>
+<section class="map-section">
+  <h2>Our Location</h2>
+  <div class="map-container" style="width:100%; height:450px;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.1234567890!2d85.3191549!3d27.7075944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190bd2a2f935%3A0x4de2dd8cfdb08d1d!2sKamaladi%20Rd%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1690000000000!5m2!1sen!2snp"
+      width="100%"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+
+<!-- Contact Info below form -->
+
+{% endblock %}

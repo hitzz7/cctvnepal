@@ -1,0 +1,53 @@
+# admin.py
+from django.contrib import admin
+from .models import Category, Product, ProductImage,StartaProject,ProjectImage,Project,Brand
+from .models import City, Order, OrderItem,Package
+# Define an inline class for ProjectImage
+class ProductImageInline(admin.TabularInline):  # You can use StackedInline for a different layout
+    model = ProductImage
+    extra = 1  # Number of empty forms to display in the admin
+
+# Customize the Project admin
+class ProductAdmin(admin.ModelAdmin):
+    inlines = [ProductImageInline] 
+    # Include the ProjectImage inline in the Project admin
+class ProjectImageInline(admin.TabularInline):  # You can use StackedInline for a different layout
+    model = ProjectImage
+    extra = 1  # Number of empty forms to display in the admin
+
+# Customize the Project admin
+class ProjectAdmin(admin.ModelAdmin):
+    inlines = [ProjectImageInline] 
+
+# Register your models
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'parent')
+    list_filter = ('parent',)
+    search_fields = ('name',)
+    
+admin.site.register(Brand)
+admin.site.register(Package)
+admin.site.register(Product, ProductAdmin)  
+admin.site.register(Project, ProjectAdmin) 
+admin.site.register(StartaProject)# Use the custom ProjectAdmin
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0  # do not show extra empty rows
+    readonly_fields = ('title', 'price', 'quantity', 'image_url')  # prevent editing if you want
+    can_delete = False
+
+# Admin for Order
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'email', 'phone', 'city', 'total_price', 'is_paid', 'created_at')
+    list_filter = ('is_paid', 'city', 'created_at')
+    search_fields = ('name', 'email', 'phone', 'address')
+    readonly_fields = ('total_price', 'created_at')
+    inlines = [OrderItemInline]
+
+# Admin for City
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ('name', 'delivery_charge')
+    search_fields = ('name',)

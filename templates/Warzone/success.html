@@ -1,0 +1,190 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}Order Success{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Urban', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+  }
+
+  .success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 40px 20px;
+    text-align: center;
+  }
+
+  .success-icon {
+    font-size: 80px;
+    color: #4BB543;
+    margin-bottom: 20px;
+  }
+
+  .success-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .success-message {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .order-id {
+    font-weight: 600;
+    color: #0097b2;
+  }
+
+  .btn-home {
+    display: inline-block;
+    padding: 14px 30px;
+    background-color: #0097b2;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+
+  .btn-home:hover {
+    background-color: #007a91;
+  }
+
+  /* Order summary section */
+  .order-summary {
+    background: #fff;
+    width: 80%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: left;
+  }
+
+  .order-summary h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+
+  .order-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+  }
+
+  .item-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .item-left img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .item-details {
+    font-size: 16px;
+  }
+
+  .item-details strong {
+    display: block;
+    color: #333;
+  }
+
+  .total-section {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: right;
+    font-weight: 600;
+  }
+
+  .total-section span {
+    color: #0097b2;
+  }
+
+  @media (max-width: 600px) {
+    .order-summary {
+      width: 95%;
+      padding: 20px;
+    }
+    .order-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .item-left img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+</style>
+
+<div class="success-container">
+    <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="success-title">Thank You!</div>
+    <div class="success-message">
+        Your order has been successfully placed.<br>
+        We’ve sent you an email with your order details.<br>
+        Your order will be delivered within 2–3 business days.
+    </div>
+</div>
+
+<!-- ✅ Order Summary Section -->
+<div class="order-summary">
+  <h3>Your Order Summary</h3>
+  <ul class="order-items">
+    {% for item in order_items %}
+    <li class="order-item">
+      <div class="item-left">
+        
+          <img src="{{ item.image_url }}" alt="{{ item.title }}">
+        
+        <div class="item-details">
+          <strong>{{ item.title }}</strong>
+          Qty: {{ item.quantity }}
+        </div>
+      </div>
+      <div class="item-price">Rs {{ item.subtotal|floatformat:2 }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="total-section">
+    Delivery: Rs {{ order.delivery_charge|floatformat:2 }} <br>
+    <span>Total: Rs {{ order.total_price|floatformat:2 }}</span>
+  </div>
+</div>
+
+<div style="text-align:center; margin-bottom: 80px;">
+  <a href="{% url 'store:home' %}" class="btn-home">Continue Shopping</a>
+</div>
+
+{% endblock %}

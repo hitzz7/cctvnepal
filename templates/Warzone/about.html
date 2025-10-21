@@ -1,0 +1,154 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<style>
+.about-section {
+    padding: 40px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.about-section h2 {
+    font-size: 48px;
+    font-family: "Calton", sans-serif;
+    margin-bottom: 20px;
+}
+
+.about-section h3 {
+    font-size: 72px;
+    font-family: "Calton", sans-serif;
+    margin-bottom: 20px;
+}
+
+h4 {
+    font-size: 52px;
+    font-family: "Calton", sans-serif;
+    margin: 15px;
+    text-align: center;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1400px;
+    gap: 100px;
+    margin: 100px auto;
+}
+
+.about-content .image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.about-content .text {
+    max-width: 600px;
+    text-align: left;
+    font-size: 26px;
+    font-family: 'Itronz', sans-serif;
+    line-height: 1.6;
+    margin-bottom: 100px;
+}
+
+/* Partners section */
+.partners {
+    text-align: center;
+    margin: 80px 0;
+}
+
+.partners h2 {
+    font-size: 48px;
+    font-family: "Calton", sans-serif;
+    margin-bottom: 40px;
+}
+
+.partners-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.partners-logos img {
+    width: 150px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.partners-logos img:hover {
+    transform: scale(1.1);
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 480px) {
+
+    .about-section {
+        padding: 20px;
+        margin-top: 40px;
+    }
+
+    .about-section h2 {
+        font-size: 32px;
+    }
+
+    .about-content {
+        flex-direction: column;
+        width: 100%;
+        gap: 40px;
+        margin-top: 60px;
+    }
+
+    .about-content .image img {
+        width: 90%;
+        border-radius: 10px;
+    }
+
+    .about-content .text {
+        font-size: 18px;
+        max-width: 90%;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .about-section h3 {
+        font-size: 36px;
+    }
+
+    
+
+    
+}
+</style>
+
+<div class="about-section">
+    <h2>About Us</h2>
+    
+    <div class="about-content">
+        <div class="image">
+            <img src="{% static 'instal.jpg' %}" alt="About Us">
+        </div>
+        <div class="text">
+            <h3>Who are CCTV Nepal?</h3>
+            <p>
+                Our mission is to deliver exceptional quality and ensure customer satisfaction. With a dedicated team and years of experience, we strive to make a positive impact in the industry.
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="partners">
+  <h2>Our Partners</h2>
+  <div class="partners-logos">
+    <img src="{% static 'ezvis.png' %}" alt="Partner 1">
+    <img src="{% static 'hk.png' %}" alt="Partner 2">
+    <img src="{% static 'hilook.avif' %}" alt="Partner 3">
+    <img src="{% static 'hk.png' %}" alt="Partner 4">
+  </div>
+</section>
+{% endblock %}

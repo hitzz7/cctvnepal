@@ -1,0 +1,141 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}Work{% endblock %}
+
+{% block content %}
+<style>
+  /* Section styling */
+  .services-section {
+    text-align: center;
+    padding: 100px 20px;
+    background: #FFF;
+  }
+
+  /* Title styling */
+  .services-title {
+    font-size: 80px; /* Bigger font */
+    font-weight: 900;
+    margin-bottom: 80px;
+    font-family: 'Poppins', sans-serif;
+    color: #222;
+  }
+
+  /* List styling */
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+
+  .services-list li {
+    font-size: 48px; /* Extra large font */
+    
+    margin: 40px 0;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    padding-bottom: 15px;
+  }
+
+  /* Separator under each list item */
+  .services-list li::after {
+    content: "";
+    display: flex;\
+    
+    width: 600px;
+    height: 4px;
+    background-color:grey;
+    margin: 15px auto 0;
+    border-radius: 2px;
+  }
+
+  /* Hover effect */
+  .services-list li:hover {
+    color: #0097b2;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .services-title {
+      font-size: 60px;
+    }
+    .services-list li {
+      font-size: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .services-title {
+      font-size: 48px;
+    }
+    .services-list li {
+      font-size: 28px;
+    }
+  }
+</style>
+<section class="services-section">
+  <h2 class="services-title">Our Services</h2>
+  <ul class="services-list">
+    <li>CCTV cabling</li>
+    <li>Camera installation</li>
+    <li>DVR/NVR setup</li>
+    <li>Remote viewing via internet</li>
+    <li>Mobile monitorin</li>
+    <li>Surveillance solutions</li>
+  </ul>
+</section>
+<section class="cctv-services">
+  
+  <div class="services-grid">
+
+    <div class="cctv-box">
+      <img src="{% static 'installation.png' %}" alt="Installation">
+      <h3>Installation</h3>
+      <p>Professional setup of high-quality CCTV cameras for homes and businesses.</p>
+    </div>
+
+    <div class="cctv-box">
+      <img src="{% static 'tools.png' %}" alt="Maintenance">
+      <h3>Maintenance</h3>
+      <p>Regular system checks and updates to keep your surveillance running smoothly.</p>
+    </div>
+
+    <div class="cctv-box">
+      <img src="{% static 'support.png' %}" alt="Support">
+      <h3>Support</h3>
+      <p>24/7 support for troubleshooting and resolving any technical issues.</p>
+    </div>
+
+    <div class="cctv-box">
+      <img src="{% static 'tools.png' %}" alt="System Upgrades">
+      <h3>System Upgrades</h3>
+      <p>Upgrade your security system with the latest camera and software technology.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="services-section">
+    <h2>Our Services</h2>
+    <div class="service-box">
+        <img src="{% static 'instal.jpg' %}" alt="Service Image" class="service-image">
+        <div class="service-text">
+            <h3>Services for CCTV Installment</h3>
+            <p>
+                Enhance your security with our professional CCTV services, tailored to your needs, ensuring a strong online presence.Enhance your security with our professional CCTV services, tailored to your needs, ensuring a strong online presence.
+            </p>
+            
+        </div>
+    </div>
+    
+   
+    
+</div>
+
+
+{% endblock %}

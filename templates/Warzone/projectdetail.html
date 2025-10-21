@@ -1,0 +1,70 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} Gallery{% endblock %}
+
+{% block content %}
+<style>
+    .gallery-section {
+  max-width: 1400px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.gallery-section h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #222;
+}
+
+/* Masonry grid */
+.gallery-grid {
+  column-count: 2;      /* number of columns */
+  column-gap: 20px;     /* gap between columns */
+}
+
+.gallery-item {
+  break-inside: avoid;  /* prevent item breaking across columns */
+  margin-bottom: 20px;
+  overflow: hidden;
+  
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.gallery-item img {
+  width: 100%;          /* full width of column */
+  height: auto;         /* maintain aspect ratio */
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);  /* small zoom on hover */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .gallery-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    column-count: 1;
+  }
+}
+
+</style>
+<div class="gallery-section">
+  <h2>{{ project.title }} - Image Gallery</h2>
+  <div class="gallery-grid">
+    {% for image in images %}
+    <div class="gallery-item">
+      <img src="{{ image.image.url }}" alt="{{ project.title }} Image {{ forloop.counter }}">
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
