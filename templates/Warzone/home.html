@@ -47,13 +47,7 @@
     
 <div class="products-section" style="margin-top:50px">
     <h2>CCtV Cameras</h2>
-    {% comment %} <div class="categories-grid">
-        {% for category in categories %}
-        <div class="category-card">
-            {{ category.name }}
-        </div>
-        {% endfor %}
-    </div> {% endcomment %}
+    
     <div class="products-grid">
         {% for product in products %}
         <a href="{% url 'store:product_detail' product.slug %}">
@@ -165,33 +159,7 @@
     
 
 
-    {% comment %} <div class="work-section">
-        <h2>Our Projects</h2>
-        <div class="projects-grid">
-            {% for project in projects %}
-            <a href="{% url 'store:project_detail' project.id %}">
-            <div class="project-card">
-                <div class="image">
-                    {% for image in project.images.all %}
-                        {% if image.is_feature %}
-                            
-                                <img src="{{ image.image.url }}" alt="{{ project.title }} Featured Image">
-                            
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="overlay">
-                    <h3>{{ project.title }}</h3>
-                    
-                </div>
-            </div>
-            {% empty %}
-            <p>No projects available at the moment.</p>
-            {% endfor %}
-        </div>
-        <button class="button" style="margin-left:900px;">view all projects</button>
-    </div>
-     {% endcomment %}
+    
     <section class="image-section">
   <h2>Our Gallery</h2>
   <div class="image-grid">
@@ -218,23 +186,7 @@
 
 
 <main class="completed-projects">
-    {% comment %} <div class="project-stats">
-        <div class="stat-item">
-            <h1>Projects Completed</h1>
-            <i class="fas fa-check-circle"></i>
-            <span>100+</span>
-        </div>
-        <div class="stat-item">
-            <h1>Years of Experience</h1>
-            <i class="fas fa-clock"></i>
-            <span>12yrs</span>
-        </div>
-        <div class="stat-item">
-            <h1>Team Members</h1>
-            <i class="fas fa-users"></i>
-            <span>15+</span>
-        </div>
-    </div> {% endcomment %}
+    
     
     <h2>Projects completed</h2>
     <div class="logo-marquee">
@@ -242,20 +194,12 @@
         <div class="company-logo">
         <img src="{% static 'oliz.webp' %}" alt="Company 1">
         </div>
-        {% comment %} <div class="company-logo">
-        <img src="{% static 'embasy.png' %}" alt="Company 2">
-        </div> {% endcomment %}
-        {% comment %} <div class="company-logo">
-        <img src="{% static 'bhatb.png' %}" alt="Company 3">
-        </div> {% endcomment %}
         
         <!-- Duplicate logos for seamless loop -->
         <div class="company-logo">
         <img src="{% static 'byd.png' %}" alt="Byd">
         </div>
-        {% comment %} <div class="company-logo">
-        <img src="{% static 'nt.png' %}" alt="Company 2">
-        </div> {% endcomment %}
+        
         <div class="company-logo">
         <img src="{% static 'vianet.png' %}" alt="Vianet">
         </div>
@@ -265,20 +209,12 @@
         <div class="company-logo">
         <img src="{% static 'oliz.webp' %}" alt="Oliz">
         </div>
-        {% comment %} <div class="company-logo">
-        <img src="{% static 'embasy.png' %}" alt="Company 2">
-        </div> {% endcomment %}
-        {% comment %} <div class="company-logo">
-        <img src="{% static 'bhatb.png' %}" alt="Company 3">
-        </div> {% endcomment %}
         
         <!-- Duplicate logos for seamless loop -->
         <div class="company-logo">
         <img src="{% static 'byd.png' %}" alt="Byd">
         </div>
-        {% comment %} <div class="company-logo">
-        <img src="{% static 'nt.png' %}" alt="Company 2">
-        </div> {% endcomment %}
+        
         <div class="company-logo">
         <img src="{% static 'vianet.png' %}" alt="Vianet  ">
         </div>
@@ -290,29 +226,7 @@
 
     
 </main>
-{% comment %} <div class="testimonial-section">
-    <h2>What Our Clients Say</h2>
-    <div class="testimonial-container">
-        <div class="testimonial-card">
-            <img src="{% static 'nt.png' %}" alt="Client Logo" class="client-logo">
-            <p>"CCTV Nepal provided exceptional service and exceeded our expectations. Their dedication and attention to detail were remarkable."</p>
-            <h4>Sunil Maskay</h4>
-            <div class="client-title">Managing Director</div>
-        </div>
-        <div class="testimonial-card">
-            <img src="{% static 'bhatb.png' %}" alt="Client Logo" class="client-logo">
-            <p>"The team at CCTV Nepal is professional, skilled, and highly dependable. We've seen a significant improvement in our operations thanks to their efforts."</p>
-            <h4>Min Bahadur Gurung</h4>
-            <div class="client-title">Founder, Bhatbhateni Store</div>
-        </div>
-        <div class="testimonial-card">
-            <img src="{% static 'byd.png' %}" alt="Client Logo" class="client-logo">
-            <p>"CCTV Nepal went above and beyond in delivering top-quality products. We highly recommend their services to anyone looking for reliable results."</p>
-            <h4>Akash Sherestha</h4>
-            <div class="client-title">Sales Person</div>
-        </div>
-    </div>
-</div> {% endcomment %}
+
 <section class="t-section">
   <h2>What Our Clients Say</h2>
   <div class="t-carousel-wrapper">
