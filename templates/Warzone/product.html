@@ -8,7 +8,7 @@
   .products-wrapper {
     display: flex;
     max-width: 1200px;
-    margin: 100px 100px;
+    margin: 100px 50px 100px 150px;
     gap: 30px;
     padding: 0 20px;
   }
@@ -63,8 +63,8 @@
 
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 80px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 150px;
   }
   .child-category {
   list-style: none;
@@ -136,20 +136,86 @@
     display: block;
   }
 
-  @media (max-width: 768px) {
+  /* Existing 768px responsive */
+@media (max-width: 768px) {
     .products-wrapper {
-      flex-direction: column;
+        flex-direction: column;
+        margin: 50px 20px; /* reduce margin on tablet */
+        gap: 20px;
     }
 
     .category-sidebar {
-      width: 100%;
+        width: 100%;
     }
-  }
+
+    .products-grid {
+        gap: 50px; /* reduce gap between cards */
+    }
+}
+
+/* New 480px responsive */
+@media (max-width: 480px) {
+    .products-wrapper {
+        margin: 0 5px; /* remove extra left/right margin */
+        gap: 10px;
+        overflow-x: hidden; /* prevent horizontal scroll */
+    }
+
+    .category-sidebar {
+        padding: 10px;
+        width: 100%; /* full width on mobile */
+    }
+
+    .category-sidebar h2 {
+        font-size: 20px;
+    }
+
+    .category-sidebar a,
+    .child-link {
+        font-size: 14px;
+    }
+
+    .products-section h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+        gap: 10px; /* smaller gap */
+    }
+
+    .card {
+        width: 100%; /* make card fit grid column */
+        box-sizing: border-box; /* include padding in width */
+    }
+
+    .card .image img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .title {
+        font-size: 14px;
+    }
+
+    .price {
+        font-size: 14px;
+    }
+}
+
+
 </style>
 <section class="partners">
   <h2>Our Partners</h2>
-  <div class="partners-logos">
-    <a href="{% url 'store:product' %}?brand={{brand.hikvision}}">
+  <div class="partners-logos" style="margin:auto;">
+    <a href="{% url 'store:product' %}?brand=hikvision">
+      <img src="{% static 'hk.png' %}" alt="Hikvision">
+    </a>
+    <a href="{% url 'store:product' %}?brand=ezviz">
       <img src="{% static 'ezvis.png' %}" alt="Ezviz">
     </a>
     <a href="{% url 'store:product' %}?brand=hikvision">
@@ -211,7 +277,8 @@
               {% endif %}
             {% endfor %}
           </div>
-          <span class="title">{{ product.title }}</span>
+          <span class="title">{{ product.title|truncatewords:3 }}</span>
+
           <span class="price">RS {{ product.price }}</span>
         </div>
       </a>

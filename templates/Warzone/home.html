@@ -1,7 +1,7 @@
 {% extends './navbar.html' %}
 {% load static %}
 
-{% block title %}Work{% endblock %}
+{% block title %}CCTV Nepal{% endblock %}
 
 {% block content %}
 <div class="bg-image">
@@ -61,12 +61,13 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <span class="title">{{ product.title }}</span>
+            <span class="title">{{ product.title|truncatewords:3 }}</span>
+
             <span class="price">RS {{ product.price }}</span>
         </div>
         {% endfor %}
     </div>
-    <button class="button" style="margin-left:900px;">View all Cameras</button>
+    <button class="button" style="margin:40px auto;">View all Cameras</button>
 </div>
 <section class="partners">
   <h2>Our Partners</h2>
@@ -74,7 +75,7 @@
     <a href="{% url 'store:product' %}?brand=hikvision">
       <img src="{% static 'hk.png' %}" alt="Hikvision">
     </a>
-    <a href="{% url 'store:product' %}?brand={{brand.hikvision}}">
+    <a href="{% url 'store:product' %}?brand=ezviz">
       <img src="{% static 'ezvis.png' %}" alt="Ezviz">
     </a>
     <a href="{% url 'store:product' %}?brand=hikvision">
@@ -160,7 +161,7 @@
 
 
     
-    <section class="image-section">
+<section class="image-section">
   <h2>Our Gallery</h2>
   <div class="image-grid">
     {% for project in projects %}
@@ -230,7 +231,7 @@
 <section class="t-section">
   <h2>What Our Clients Say</h2>
   <div class="t-carousel-wrapper">
-    <button class="prev-btn">&#10094;</button>
+    <button class="prev-btn" type="button">&#10094;</button>
 
     <div class="t-carousel">
       <div class="t-card">
@@ -275,7 +276,7 @@
       <!-- Add more testimonials if needed -->
     </div>
 
-    <button class="next-btn">&#10095;</button>
+    <button class="next-btn" type="button">&#10095;</button>
   </div>
 </section>
 
@@ -363,24 +364,24 @@
     </script>
 
     <script>
-const carousel = document.querySelector('.t-carousel');
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
+      const carousel = document.querySelector('.t-carousel');
+      const prevBtn = document.querySelector('.prev-btn');
+      const nextBtn = document.querySelector('.next-btn');
 
-// Width of one card including gap
-const cardStyle = getComputedStyle(document.querySelector('.t-card'));
-const cardWidth = document.querySelector('.t-card').offsetWidth + parseInt(cardStyle.marginRight);
+      // Width of one card including gap
+      const cardStyle = getComputedStyle(document.querySelector('.t-card'));
+      const cardWidth = document.querySelector('.t-card').offsetWidth + parseInt(cardStyle.marginRight);
 
-// Slide next
-nextBtn.addEventListener('click', () => {
-  carousel.scrollLeft += cardWidth;
-});
+      // Slide next
+      nextBtn.addEventListener('click', () => {
+        carousel.scrollLeft += cardWidth;
+      });
 
-// Slide previous
-prevBtn.addEventListener('click', () => {
-  carousel.scrollLeft -= cardWidth;
-});
-</script>
+      // Slide previous
+      prevBtn.addEventListener('click', () => {
+        carousel.scrollLeft -= cardWidth;
+      });
+      </script>
 
 
     
