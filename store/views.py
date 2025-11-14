@@ -282,7 +282,7 @@ def send_whatsapp_message(to_number, template_name=None, components=None):
         
         "template": {
             "name": template_name,  # e.g., 'order_confirmation'
-            "language": {"code": "en_US"},
+            "language": {"code": "en"},
         },
     }
 
@@ -377,6 +377,25 @@ def checkout(request):
         message_text += f"\nTotal (with delivery): NPR {order.total_price}"
 
         # Send WhatsApp message
+        
+        items_text = ""
+        for item in cart_items:
+            items_text += f"- {item['product'].title} x {item['quantity']} = NPR {item['subtotal']}\n"
+
+        # 2️⃣ Build customer info
+        customer_info = (
+            f"Name: {order.name}\n"
+            f"Phone: {order.phone}\n"
+            f"Email: {order.email}\n"
+            f"Address: {order.address}, {order.city.name if order.city else ''}\n"
+        )
+        if order.landmark:
+            customer_info += f"Landmark: {order.landmark}\n"
+
+        # --------------------------
+        # Send WhatsApp Template Message
+        # Template needs 5 body params
+        # ---
         send_whatsapp_message(
             to_number=settings.MY_WHATSAPP_NUMBER,  # or customer's number
             template_name="order_confirmation",  # must match approved template name
@@ -387,6 +406,8 @@ def checkout(request):
                         {"type": "text", "text": order.name},
                         {"type": "text", "text": str(order.id)},
                         {"type": "text", "text": f"NPR {order.total_price}"},
+                        {"type": "text", "text": customer_info},                # {{4}}
+                        {"type": "text", "text": items_text},  
                     ],
                 }
             ],
