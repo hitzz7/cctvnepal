@@ -41,6 +41,12 @@
     .project-card:hover {
         transform: translateY(-5px);
     }
+    .project-card .image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Change ratio if you want */
+    overflow: hidden;
+}
     
     .project-card .image img {
         width: 100%;
@@ -115,15 +121,5 @@
         {% endfor %}
     </div>
 </div>
-    <h2 >Projects completed</h2>
-    <div class="project-logos">
-        
-        <div class="company-logo">
-            <img src="{% static 'bb.png' %}" alt="Company 1">
-        </div>
-        <div class="company-logo">
-            <img src="{% static 'gand.png' %}" alt="Company 2">
-        </div>
-       
-    </div>
+    
 {% endblock %}
