@@ -2173,6 +2173,7 @@ hr{
 }
 
 .pricing-section {
+  margin:80px 0px;
   text-align: center;
   padding: 80px 20px;
   background: linear-gradient(135deg, #f9fafc, #eef3f7);
