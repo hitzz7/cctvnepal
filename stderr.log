@@ -1038,3 +1038,126 @@ Bad Request: /
 Not Found: /robots.txt
 Not Found: /product/pfs4218-16et-190-16-port-poe-switch/
 Not Found: /wp-content/uploads/2019/05/DS-2CD1643G0-IZ.jpg
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+OSError: LSAPI: Socket read/write error
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+Invalid HTTP_HOST header: 'www.cctvnepal.com.np.hitzz.co'. You may need to add 'www.cctvnepal.com.np.hitzz.co' to ALLOWED_HOSTS.
+Bad Request: /
+[UID:1542][1614232] Child process with pid: 1614257 was killed by signal: 15, core dump: 0
+[UID:1542][1614232] Child process with pid: 1614259 was killed by signal: 15, core dump: 0
+[UID:1542][1614232] Child process with pid: 1614258 was killed by signal: 15, core dump: 0
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822_aQsm8jo.png
+Not Found: /media/products/%E6%AD%A3%E8%A7%86%E5%9B%BE_1.png
+Not Found: /media/products/%E6%AD%A3%E8%A7%86%E5%9B%BE.png
+Not Found: /media/products/DS-D5024FN10_1_%E6%AD%A3%E8%A7%86%E5%9B%BE.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822.png
+io.UnsupportedOperation: fileno
+Not Found: /wp-content/uploads/2019/05/76d485a5-1069-4212-b211-38c829749f32.jpg
+Not Found: /xmlrpc.php
+Not Found: /robots.txt
+Not Found: /robots.txt
+Not Found: /robots.txt
+Not Found: /robots.txt
+Not Found: /shop/page/30/
+io.UnsupportedOperation: fileno
+Not Found: /media/products/%E6%AD%A3%E8%A7%86%E5%9B%BE.png
+Not Found: /media/products/%E6%AD%A3%E8%A7%86%E5%9B%BE_1.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822_aQsm8jo.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822.png
+Not Found: /media/products/DS-D5024FN10_1_%E6%AD%A3%E8%A7%86%E5%9B%BE.png
+Not Found: /media/products/%E6%AD%A3%E8%A7%86%E5%9B%BE_1.png
+Not Found: /media/products/DS-D5024FN10_1_%E6%AD%A3%E8%A7%86%E5%9B%BE.png
+Not Found: /media/products/%E6%AD%A3%E8%A7%86%E5%9B%BE.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822_aQsm8jo.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822_aQsm8jo.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822_aQsm8jo.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822.png
+Not Found: /media/products/%E5%B8%A6%E6%91%84%E5%83%8F%E5%A4%B4%E6%AC%BE%E5%A4%96%E8%A7%822_aQsm8jo.png
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+Internal Server Error: /search/
+Traceback (most recent call last):
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hitzzco/cctvnepal/store/views.py", line 504, in search_products
+    'query': query
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: Warzone/search_results.html
+Not Found: /favicon.ico
+Internal Server Error: /search/
+Traceback (most recent call last):
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hitzzco/cctvnepal/store/views.py", line 504, in search_products
+    'query': query
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: Warzone/search_results.html
+Internal Server Error: /search/
+Traceback (most recent call last):
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hitzzco/cctvnepal/store/views.py", line 504, in search_products
+    'query': query
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: Warzone/search_results.html
+Internal Server Error: /search/
+Traceback (most recent call last):
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hitzzco/cctvnepal/store/views.py", line 504, in search_products
+    'query': query
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/hitzzco/virtualenv/cctvnepal/3.7/lib/python3.7/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: Warzone/search_results.html
+io.UnsupportedOperation: fileno
+Not Found: /static/gand.png
+Not Found: /wp-content/uploads/2019/05/dvr.jpg
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+io.UnsupportedOperation: fileno
+OSError: LSAPI: File error
+io.UnsupportedOperation: fileno
+Not Found: /wp-content/uploads/2016/01/M5-1.png
+io.UnsupportedOperation: fileno
+Not Found: /product-category/ahd-hd-camera/hikvision-ahd-camera/
