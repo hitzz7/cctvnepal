@@ -44,10 +44,11 @@ def package_detail(request, pk):
 def product(request):
     # Show only top-level categories
     categories = Category.objects.filter(parent=None)
-    brand_id = request.GET.get('brand')
+    brand_param = request.GET.get('brand')
     category_id = request.GET.get('category')
     selected_category = None
     child_categories = []
+    brand_name = None 
     products = Product.objects.all()
     selected_brand = None
 
@@ -62,16 +63,25 @@ def product(request):
         except Category.DoesNotExist:
             products = Product.objects.all()
             
-    if brand_id:
-        selected_brand = Brand.objects.get(id=brand_id)
-        products = products.filter(brand=selected_brand)
+    if brand_param:
+        try:
+            selected_brand = Brand.objects.get(name__iexact=brand_param.strip())
+            products = products.filter(brand=selected_brand)
+            brand_name = selected_brand.name  # send to template
+        except Brand.DoesNotExist:
+            selected_brand = None
+            brand_name = None
+
 
     context = {
         'categories': categories,
         'products': products,
+        
         'selected_category': selected_category,
         'child_categories': child_categories,
         'selected_brand': selected_brand,
+        'brand_name': brand_name,
+        
     }
 
     return render(request, 'Warzone/product.html', context)
@@ -127,6 +137,10 @@ def contact(request):
 
 def cart_detail(request):
     cart = request.session.get('cart', {})
+    
+    
+    
+    
     cart_items = []
     total_price = 0
 
@@ -143,6 +157,7 @@ def cart_detail(request):
             'subtotal': subtotal,
             'feature_image': feature_image.image.url if feature_image else None,
         })
+        
 
     context = {
         'cart_items': cart_items,
@@ -244,23 +259,40 @@ def send_whatsapp_message_twilio(to_number, message_body):
     print("Message SID:", message.sid)
     return(message.sid)
 
-def send_whatsapp_message(to_number, message_text):
+def send_whatsapp_message(to_number, template_name=None, components=None):
+    """
+    Send WhatsApp message using a pre-approved template via Meta Cloud API.
+    """
+    
+
     url = f"https://graph.facebook.com/v17.0/{settings.WHATSAPP_PHONE_NUMBER_ID}/messages"
     headers = {
         "Authorization": f"Bearer {settings.WHATSAPP_CLOUD_TOKEN}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
+
+    if not template_name:
+        print("⚠️ Template name is required for templated messages.")
+        return None
+
     data = {
         "messaging_product": "whatsapp",
-        "to": to_number,  # Include country code, e.g., 9779818326491
-        "type": "text",
-        "text": {
-            "body": message_text
-        }
+        "to": to_number,
+        "type": "template",
+        
+        "template": {
+            "name": template_name,  # e.g., 'order_confirmation'
+            "language": {"code": "en"},
+        },
     }
-    response = requests.post(url, headers=headers, json=data)
-    return response.json()
 
+    # If your template has placeholders, add dynamic components
+    if components:
+        data["template"]["components"] = components
+
+    response = requests.post(url, headers=headers, json=data)
+    print("📤 WhatsApp API Response:", response.json())
+    return response.json()
 
 def checkout(request):
     cities = City.objects.all()
@@ -345,10 +377,45 @@ def checkout(request):
         message_text += f"\nTotal (with delivery): NPR {order.total_price}"
 
         # Send WhatsApp message
-        send_whatsapp_message_twilio(settings.MY_WHATSAPP_NUMBER,message_text)
         
-        customer_whatsapp = f"whatsapp:+977{phone}" if not phone.startswith("+") else f"whatsapp:{phone}"
-        send_whatsapp_message_twilio(customer_whatsapp, message_text)
+        items_text = ""
+        for item in cart_items:
+            items_text += f"- {item['product'].title} x {item['quantity']} = NPR {item['subtotal']}\n"
+
+        # 2️⃣ Build customer info
+        customer_info = (
+            f"Name: {order.name}\n"
+            f"Phone: {order.phone}\n"
+            f"Email: {order.email}\n"
+            f"Address: {order.address}, {order.city.name if order.city else ''}\n"
+        )
+        if order.landmark:
+            customer_info += f"Landmark: {order.landmark}\n"
+
+        # --------------------------
+        # Send WhatsApp Template Message
+        # Template needs 5 body params
+        # ---
+        send_whatsapp_message(
+            to_number=settings.MY_WHATSAPP_NUMBER,  # or customer's number
+            template_name="order_confirmation",  # must match approved template name
+            components=[
+                {
+                    "type": "body",
+                    "parameters": [
+                        {"type": "text", "text": order.name},
+                        {"type": "text", "text": str(order.id)},
+                        {"type": "text", "text": f"NPR {order.total_price}"},
+                        {"type": "text", "text": customer_info},                # {{4}}
+                        {"type": "text", "text": items_text},  
+                    ],
+                }
+            ],
+        )
+
+        
+        # customer_whatsapp = f"977{phone}" if not phone.startswith("977") else phone
+        # send_whatsapp_message(customer_whatsapp, message_text)
         
         send_mail(
             subject="Your Order Confirmation",

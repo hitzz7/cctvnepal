@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -125,8 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static'] 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / 'static'] 
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -150,8 +152,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TWILIO_ACCOUNT_SID = "AC114a8f2d2e23e57329bf574d8d23bf62"
 TWILIO_AUTH_TOKEN = "d4b12e354d90e24d949a9575666fdbd4"
 TWILIO_WHATSAPP_NUMBER = "whatsapp:+14155238886"  # Twilio sandbox number
-MY_WHATSAPP_NUMBER = "whatsapp:+9779818326491"  
+MY_WHATSAPP_NUMBER = "9779818326491"  
 
 
-WHATSAPP_CLOUD_TOKEN = "EAAbljP0Aa4kBPpMddWbLhUfOmZC43k4oUZBtNnirAc7z7JXEBqKgs1G1K4zDA0bF0rM0ZB9PVAKHexXDxDpYeCjGmsfajOl99ebvq7ga2LaPcNDSAZCq0jTE79mgV8Lku8fXLwH1dMAyYaE0MZCe4mVoegwalmkcXgzZBJBJ3pLsncIHbQcMTpoakxPt66YgBhB2As0G0gbdctefio8q3sm1eWjkzwR3lef3VaAe7yamkBlwZDZD"
+WHATSAPP_CLOUD_TOKEN = "EAAbljP0Aa4kBP3fa9E6dyoQCl2GbXNY1Mk857h0ZB7nyp57yzYDzbbiPml9TKZCQQZAppJw8rr11JgxFDgq6fJQAcNJTLVfJJvs0EmdUeK7ifkK5ULpZA4CdSv4m1enB1WLsLrtQzC7IZCEywhZBzAlhmIMtwShMmbZBXJicvkIDZCk6axFOaBvWDW4AuhjPdvTgJAAG6mpqacv1qHdqeZBSm8AGmftMvEo3E3enDZAGLF"
 WHATSAPP_PHONE_NUMBER_ID = "813919011802088"# Your personal WhatsApp number
