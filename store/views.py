@@ -378,40 +378,53 @@ def checkout(request):
 
         # Send WhatsApp message
         
-        items_text = ""
-        for item in cart_items:
-            items_text += f"- {item['product'].title} x {item['quantity']} = NPR {item['subtotal']}\n"
+        customer_whatsapp = (
+            f"977{order.phone}" if not order.phone.startswith("977") else order.phone
+        )
+        
+        items_text = ", ".join([
+            f"{item['product'].title} x {item['quantity']} = NPR {item['subtotal']}"
+            for item in cart_items
+        ])
+
+        
 
         # 2️⃣ Build customer info
-        customer_info = (
-            f"Name: {order.name}\n"
-            f"Phone: {order.phone}\n"
-            f"Email: {order.email}\n"
-            f"Address: {order.address}, {order.city.name if order.city else ''}\n"
-        )
+        customer_info = f"Name: {order.name}; Phone: {order.phone}; Email: {order.email}; Address: {order.address}"
         if order.landmark:
-            customer_info += f"Landmark: {order.landmark}\n"
+            customer_info += f"; Landmark: {order.landmark}"
 
         # --------------------------
         # Send WhatsApp Template Message
         # Template needs 5 body params
         # ---
-        send_whatsapp_message(
-            to_number=settings.MY_WHATSAPP_NUMBER,  # or customer's number
-            template_name="order_confirmation",  # must match approved template name
-            components=[
-                {
-                    "type": "body",
-                    "parameters": [
-                        {"type": "text", "text": order.name},
-                        {"type": "text", "text": str(order.id)},
-                        {"type": "text", "text": f"NPR {order.total_price}"},
-                        {"type": "text", "text": customer_info},                # {{4}}
-                        {"type": "text", "text": items_text},  
-                    ],
-                }
-            ],
-        )
+        # Prepare customer WhatsApp number
+        
+        # List of numbers to send to
+        numbers = [
+            settings.MY_WHATSAPP_NUMBER,  # your number
+            customer_whatsapp            # customer number
+        ]
+
+        # Loop and send to each
+        for num in numbers:
+            send_whatsapp_message(
+                to_number=num,
+                template_name="order_confirmation",
+                components=[
+                    {
+                        "type": "body",
+                        "parameters": [
+                            {"type": "text", "text": order.name},
+                            {"type": "text", "text": str(order.id)},
+                            {"type": "text", "text": f"NPR {order.total_price}"},
+                            {"type": "text", "text": customer_info},
+                            {"type": "text", "text": items_text},
+                        ],
+                    }
+                ],
+            )
+
 
         
         # customer_whatsapp = f"977{phone}" if not phone.startswith("977") else phone
@@ -457,20 +470,30 @@ def contactc(request):
             description = form.cleaned_data['description']
             
             # Compose the email content
-            subject = f'New Contact Message from {name}'
-            message = f"Name: {name}\nEmail: {email}\nPhone: {mobile}\nMessage: {description}"
-            recipient_email = 'najus777@gmail.com'  # Replace with the recipient's email address
-            
-            try:
-                # Send the email using Django's send_mail function
-                send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient_email])
+            whatsapp_message = (
+                f"📩 New Contact Message\n\n"
+                f"Name: {name}\n"
+                f"Email: {email}\n"
+                f"Phone: {mobile}\n"
+                f"Message: {description}"
+            )
 
-                # Redirect to success page or any other appropriate page
-                return redirect('Warzone:success')  # You can change 'Warzone:success' to your actual success URL
-            except Exception as e:
-                # Handle any errors that occur while sending the email
-                print(f"Error sending email: {e}")
-                return render(request, 'Warzone/contact.html', {'form': form, 'error': 'There was an error sending the email. Please try again.'})
+            # Send via WhatsApp Cloud API using template
+            send_whatsapp_message(
+                to_number=settings.MY_WHATSAPP_NUMBER,   # send to your number
+                template_name="contact_message",         # create template in WhatsApp
+                components=[
+                    {
+                        "type": "body",
+                        "parameters": [
+                            {"type": "text", "text": name},
+                            {"type": "text", "text": mobile},
+                            {"type": "text", "text": email},
+                            {"type": "text", "text": description},
+                        ]
+                    }
+                ]
+            )
 
     else:
         form = ContactForm()
