@@ -185,11 +185,13 @@
         grid-template-columns: repeat(2, 1fr); /* 2 products per row */
         gap: 10px; /* smaller gap */
         overflow-x:hidden;
+        overflow-y:hidden;
     }
 
     .card {
-        width: 100%; /* make card fit grid column */
-        box-sizing: border-box; /* include padding in width */
+        flex: 0 0 auto; 
+        width: 10em; /* make card fit grid column */
+        /* include padding in width */
     }
 
     .card .image img {
