@@ -1612,14 +1612,15 @@ h2{
         display: flex; /* Change grid layout to flex for horizontal scrolling */
         gap: 10px;
         overflow-x: auto;
-        overflow-y:auto; /* Allow horizontal scrolling */
+        overflow-y:hidden; /* Allow horizontal scrolling */
         padding: 0;
         margin: 0;
     }
 
     .card {
         flex: 0 0 auto; /* Prevent cards from shrinking */
-        width: 12em; /* Set a fixed width for each card */
+        width: 12em;
+        height:14em; /* Set a fixed width for each card */
         margin-right: 10px; /* Space between cards */
     }
 

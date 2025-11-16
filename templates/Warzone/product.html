@@ -61,7 +61,7 @@
     margin-bottom: 20px;
   }
 
-  .products-grid {
+  .products-grid1 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 150px;
@@ -148,7 +148,7 @@
         width: 100%;
     }
 
-    .products-grid {
+    .products-grid1 {
         gap: 50px; /* reduce gap between cards */
     }
 }
@@ -180,7 +180,7 @@
         margin-bottom: 15px;
     }
 
-    .products-grid {
+    .products-grid1 {
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* 2 products per row */
         gap: 10px; /* smaller gap */
@@ -267,7 +267,7 @@
   <!-- Products -->
   <div class="products-section">
     <h2>Shop</h2>
-    <div class="products-grid">
+    <div class="products-grid1">
       {% for product in products %}
       <a href="{% url 'store:product_detail' product.slug %}">
         <div class="card">
