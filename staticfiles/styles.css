@@ -1612,7 +1612,7 @@ h2{
         display: flex; /* Change grid layout to flex for horizontal scrolling */
         gap: 10px;
         overflow-x: auto;
-        overflow-y:hidden; /* Allow horizontal scrolling */
+        overflow-y:auto; /* Allow horizontal scrolling */
         padding: 0;
         margin: 0;
     }
@@ -2173,6 +2173,7 @@ hr{
 }
 
 .pricing-section {
+  margin:80px 0px;
   text-align: center;
   padding: 80px 20px;
   background: linear-gradient(135deg, #f9fafc, #eef3f7);
