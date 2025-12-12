@@ -2314,7 +2314,7 @@ hr{
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 30px;
   align-items: center;
-  margin-left: -250px;
+  
    /* slight left shift */
   justify-items: center;
 }

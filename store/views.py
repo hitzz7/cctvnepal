@@ -522,7 +522,7 @@ def search_products(request):
         Q(title__icontains=query) | Q(description__icontains=query)
     ) if query else Product.objects.none()
 
-    return render(request, 'Warzone/search_results.html', {
+    return render(request, 'Warzone/search_result.html', {
         'products': products,
         'query': query
     })
