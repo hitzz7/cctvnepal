@@ -67,6 +67,7 @@
 
   {% if products %}
     {% for product in products %}
+    <a href="{% url 'store:product_detail' product.slug %}">
       <div class="card">
             <div class="image">
                 {% for image in product.images.all %}

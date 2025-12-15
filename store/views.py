@@ -15,6 +15,7 @@ from decimal import Decimal
 import requests
 from .models import Package
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 
 def home(request):
@@ -537,3 +538,13 @@ def youtube_live(request):
         "CHANNEL_ID": "YOUR_CHANNEL_ID",
     }
     return render(request, "youtube_live.html", context)
+
+def robots_txt(request):
+    content = """User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /api/
+Sitemap: https://yourdomain.com/sitemap.xml
+"""
+    return HttpResponse(content, content_type="text/plain")

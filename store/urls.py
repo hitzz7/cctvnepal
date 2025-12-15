@@ -38,6 +38,7 @@ urlpatterns = [
     path('search/', views.search_products, name='search_products'),
     path('search-page/', views.search_page, name='search_page'),
     path("live/", views.youtube_live, name="youtube_live"),# new
+    path("robots.txt", views.robots_txt),
     
     
 ]
