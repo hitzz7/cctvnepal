@@ -330,17 +330,19 @@ height: 500px;
   align-items: center;
   position: relative;
   max-width: 1400px;
-  height:120%;
+  height: calc(100vh - 100px);
   margin: 0 auto;
+  /* hide horizontal scrollbar */
 }
 
 .t-carousel {
   display: flex;
   gap: 20px;
-  overflow: hidden;
+  overflow-x: hidden;
   width: 100%;
-  
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  padding-bottom: 20px;
 }
 
 .t-card {
@@ -349,10 +351,11 @@ height: 500px;
   padding: 30px;
   width: 300px;
   border-radius: 12px;
- box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
   flex-shrink: 0;
   font-size: 18px;
+  scroll-snap-align: start;
 }
 
 .t-card  img{
