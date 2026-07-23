@@ -1,0 +1,193 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f4f8;
+    }
+
+    .signup-section {
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+        text-align: center;
+        min-height: calc(100vh - 200px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .signup-section h1 {
+        font-size: 42px;
+        color: #222;
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-family: 'Calton', sans-serif;
+    }
+
+    .signup-section p {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 0px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+        text-align: left;
+        font-size: 18px;
+        font-family: "Calton", sans-serif;
+    }
+
+    .form-group input {
+        width: 95%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 0px;
+        font-size: 16px;
+        background: #fafafa;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        font-family: "Itronz", sans-serif;
+    }
+
+    .form-group input:focus {
+        border-color: #0097b2;
+        box-shadow: 0 0 6px rgba(0, 151, 178, 0.5);
+        outline: none;
+    }
+
+    .form-group label {
+        margin-bottom: 8px;
+        display: block;
+        font-weight: bold;
+        color: #444;
+    }
+
+    .submit-button {
+        font-size: 18px;
+        padding: 12px 30px;
+        background-color: #D0FF71;
+        color: black;
+        font-weight: bold;
+        border: none;
+        border-radius: 0px;
+        width: 100%;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'itronz', sans-serif;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .submit-button:hover {
+        background-color: black;
+        color: white;
+    }
+
+    .form-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .error-messages {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        border: 1px solid #f5c6cb;
+    }
+
+    .success-messages {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        border: 1px solid #c3e6cb;
+    }
+
+    .login-link {
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .login-link a {
+        color: #0097b2;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .signup-section h1 {
+            font-size: 32px;
+        }
+        
+        .form-container {
+            padding: 30px 20px;
+        }
+    }
+</style>
+
+<div class="signup-section" style="margin-top: 60px;">
+    <h1>Sign Up</h1>
+    <p>Create your account and we'll send you an activation email</p>
+    
+    {% if messages %}
+        <div class="form-container">
+            {% for message in messages %}
+                <div class="{% if message.tags == 'error' %}error-messages{% else %}success-messages{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <div class="form-container">
+        <form action="{% url 'store:user_signup' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" class="submit-button">Sign Up</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="{% url 'store:user_login' %}">Login here</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

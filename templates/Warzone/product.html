@@ -165,61 +165,24 @@
     }
 }
 
-/* New 480px responsive */
+/* Display products below categories list on mobile */
 @media (max-width: 480px) {
     .products-wrapper {
-        margin: 0 5px; /* remove extra left/right margin */
-        gap: 10px;
-        overflow-x: hidden; /* prevent horizontal scroll */
+        display: block;
     }
 
     .category-sidebar {
-        padding: 10px;
-        width: 100%; /* full width on mobile */
-    }
-
-    .category-sidebar h2 {
-        font-size: 20px;
-    }
-
-    .category-sidebar a,
-    .child-link {
-        font-size: 14px;
-    }
-
-    .products-section h2 {
-        font-size: 24px;
-        margin-bottom: 15px;
-    }
-
-    .products-grid1 {
-        display: grid;
-        
-        grid-template-columns: repeat(2, 1fr); /* 2 products per row */
-        gap: 10px; /* smaller gap */
-        overflow-x:hidden;
-        overflow-y:hidden;
-    }
-
-    .card {
-        flex: 0 0 auto; 
-        width: 9em; /* make card fit grid column */
-        /* include padding in width */
-    }
-
-    .card .image img {
         width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 4px;
+        order: 0;
     }
 
-    .title {
-        font-size: 14px;
+    .products-section {
+        width: 100%;
+        order: 1;
     }
-
-    .price {
-        font-size: 14px;
+    .products-grid1 {
+        gap: 40px; /* reduce gap between cards */
+        margin-left:-50px; /* move slightly left */
     }
 }
 

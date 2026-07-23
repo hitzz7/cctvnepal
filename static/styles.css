@@ -402,8 +402,49 @@ height: 500px;
 }
 
 @media (max-width: 480px) {
+  .t-section {
+    padding: 30px 15px;
+  }
+  
+  .t-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .t-carousel-wrapper {
+    height: auto;
+    max-height: 500px;
+  }
+  
+  .t-carousel {
+    gap: 15px;
+    padding-bottom: 15px;
+  }
+  
   .t-card {
     min-width: 100%; /* 1 per row */
+    width: 100%;
+    padding: 20px 15px;
+    border-radius: 8px;
+  }
+  
+  .t-card img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .t-card .t-text {
+    font-size: 1rem;
+  }
+  
+  .t-card .client-title {
+    font-size: 14px;
+  }
+  
+  .prev-btn, .next-btn {
+    font-size: 1.5rem;
+    padding: 0 10px;
   }
 }
 
@@ -750,11 +791,7 @@ h2{
 }
 
 
-    .services-section {
-        
-        text-align: center;
-        background-color:white;
-    }
+    
     
     .services-section h2 {
         font-size: 46px;
@@ -1614,8 +1651,7 @@ h2{
     .products-grid {
         display: flex; /* Change grid layout to flex for horizontal scrolling */
         gap: 10px;
-        overflow-x: auto;
-        overflow-y:hidden; /* Allow horizontal scrolling */
+        overflow: auto; /* Enable both horizontal and vertical scrolling */
         padding: 0;
         margin: 0;
     }

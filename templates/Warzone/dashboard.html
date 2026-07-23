@@ -1,0 +1,229 @@
+{% extends './navbar.html' %}
+{% load static %}
+
+{% block title %}My Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f4f8;
+    }
+
+    .dashboard-section {
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+        min-height: calc(100vh - 200px);
+    }
+
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 42px;
+        color: #222;
+        margin-bottom: 10px;
+        font-weight: 700;
+        font-family: 'Calton', sans-serif;
+    }
+
+    .dashboard-header p {
+        font-size: 18px;
+        color: #666;
+    }
+
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 30px;
+    }
+
+    .user-info-card {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 0px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-info-card h2 {
+        font-size: 28px;
+        color: #222;
+        margin-bottom: 20px;
+        font-family: 'Calton', sans-serif;
+        border-bottom: 2px solid #0097b2;
+        padding-bottom: 10px;
+    }
+
+    .user-info-item {
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: #444;
+    }
+
+    .user-info-item strong {
+        color: #222;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .orders-card {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 0px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .orders-card h2 {
+        font-size: 28px;
+        color: #222;
+        margin-bottom: 20px;
+        font-family: 'Calton', sans-serif;
+        border-bottom: 2px solid #0097b2;
+        padding-bottom: 10px;
+    }
+
+    .order-item {
+        background: #f9f9f9;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 4px solid #0097b2;
+    }
+
+    .order-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .order-id {
+        font-size: 18px;
+        font-weight: bold;
+        color: #222;
+        margin-bottom: 10px;
+    }
+
+    .order-details {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 8px;
+    }
+
+    .order-total {
+        font-size: 16px;
+        font-weight: bold;
+        color: #0097b2;
+    }
+
+    .no-orders {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+        font-size: 16px;
+    }
+
+    .logout-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #0097b2;
+        color: white;
+        text-decoration: none;
+        border-radius: 0px;
+        font-weight: bold;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background-color: #007a8f;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 32px;
+        }
+    }
+</style>
+
+<div class="dashboard-section" style="margin-top: 60px;">
+    <div class="dashboard-header">
+        <h1>My Dashboard</h1>
+        <p>Welcome back, {{ user.username }}!</p>
+    </div>
+    
+    <div class="dashboard-container">
+        <!-- User Info Card -->
+        <div class="user-info-card">
+            <h2>Account Information</h2>
+            <div class="user-info-item">
+                <strong>Username</strong>
+                {{ user.username }}
+            </div>
+            <div class="user-info-item">
+                <strong>Email</strong>
+                {{ user.email }}
+            </div>
+            <div class="user-info-item">
+                <strong>Date Joined</strong>
+                {{ user.date_joined|date:"F d, Y" }}
+            </div>
+            <div class="user-info-item">
+                <strong>Total Orders</strong>
+                {{ total_orders }}
+            </div>
+            {% if user_address %}
+            <div class="user-info-item">
+                <strong>Phone</strong>
+                {{ user_phone }}
+            </div>
+            <div class="user-info-item">
+                <strong>Address</strong>
+                {{ user_address }}
+            </div>
+            <div class="user-info-item">
+                <strong>City</strong>
+                {{ user_city }}
+            </div>
+            {% endif %}
+            <a href="{% url 'store:user_logout' %}" class="logout-button">Logout</a>
+        </div>
+        
+        <!-- Orders Card -->
+        <div class="orders-card">
+            <h2>Recent Orders</h2>
+            {% if orders %}
+                {% for order in orders %}
+                    <div class="order-item">
+                        <div class="order-id">Order #{{ order.id }}</div>
+                        <div class="order-details">
+                            <strong>Date:</strong> {{ order.created_at|date:"F d, Y" }}
+                        </div>
+                        <div class="order-details">
+                            <strong>Status:</strong> Completed
+                        </div>
+                        <div class="order-details">
+                            <strong>Items:</strong> {{ order.items.count }} item(s)
+                        </div>
+                        <div class="order-total">
+                            Total: NPR {{ order.total_price }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-orders">
+                    <p>No orders found. Start shopping to see your orders here!</p>
+                    <a href="{% url 'store:product' %}" style="color: #0097b2; text-decoration: none; font-weight: bold;">Browse Products</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

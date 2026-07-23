@@ -16,6 +16,13 @@ import requests
 from .models import Package
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.mail import send_mail
 
 
 def home(request):
@@ -319,6 +326,26 @@ def checkout(request):
             "feature_image": img_url,
         })
 
+    # Get user data if logged in
+    user_name = ""
+    user_email = ""
+    user_phone = ""
+    user_address = ""
+    user_city_id = ""
+    user_landmark = ""
+    
+    if request.user.is_authenticated:
+        user_name = request.user.username
+        user_email = request.user.email
+        
+        # Get latest order for address info
+        latest_order = Order.objects.filter(email=user_email).order_by('-id').first()
+        if latest_order:
+            user_phone = latest_order.phone
+            user_address = latest_order.address
+            user_city_id = latest_order.city.id if latest_order.city else ""
+            user_landmark = latest_order.landmark if latest_order.landmark else ""
+
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
@@ -446,8 +473,13 @@ def checkout(request):
     context = {
         "cities": cities,
         "cart_items": cart_items,
-        
         "total_price": total_price,
+        "user_name": user_name,
+        "user_email": user_email,
+        "user_phone": user_phone,
+        "user_address": user_address,
+        "user_city_id": user_city_id,
+        "user_landmark": user_landmark,
     }
     return render(request, "Warzone/checkout.html", context)
 
@@ -548,3 +580,127 @@ Disallow: /api/
 Sitemap: https://yourdomain.com/sitemap.xml
 """
     return HttpResponse(content, content_type="text/plain")
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'You have successfully logged in!')
+            return redirect('store:home')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    
+    return render(request, 'Warzone/login.html')
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'You have successfully logged out!')
+    return redirect('store:home')
+
+def user_signup(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if password != confirm_password:
+            messages.error(request, 'Passwords do not match!')
+            return redirect('store:user_signup')
+        
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already exists!')
+            return redirect('store:user_signup')
+        
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email already exists!')
+            return redirect('store:user_signup')
+        
+        user = User.objects.create_user(username=username, email=email, password=password, is_active=False)
+        
+        # Generate activation token
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        
+        # Create activation link
+        activation_url = f"{request.scheme}://{request.get_host()}/activate/{uid}/{token}/"
+        
+        # Send activation email
+        subject = 'Activate Your Account - CCTV Nepal'
+        message = f'''
+Hello {username},
+
+Thank you for signing up at CCTV Nepal!
+
+Please click the link below to activate your account:
+{activation_url}
+
+If you did not create this account, please ignore this email.
+
+Best regards,
+CCTV Nepal Team
+'''
+        
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
+            )
+            messages.success(request, 'Account created! Please check your email to activate your account.')
+        except Exception as e:
+            messages.error(request, f'Error sending email: {e}')
+        
+        return redirect('store:user_login')
+    
+    return render(request, 'Warzone/signup.html')
+
+def activate_account(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        messages.success(request, 'Your account has been activated successfully!')
+        return redirect('store:home')
+    else:
+        messages.error(request, 'Invalid activation link or link has expired!')
+        return redirect('store:user_login')
+
+@login_required
+def user_dashboard(request):
+    user = request.user
+    orders = Order.objects.filter(email=user.email).order_by('-id')[:10]
+    
+    # Get most recent order for address info
+    latest_order = orders.first() if orders else None
+    user_address = None
+    user_phone = None
+    user_city = None
+    
+    if latest_order:
+        user_address = latest_order.address
+        user_phone = latest_order.phone
+        user_city = latest_order.city.name if latest_order.city else None
+    
+    context = {
+        'user': user,
+        'orders': orders,
+        'total_orders': orders.count(),
+        'user_address': user_address,
+        'user_phone': user_phone,
+        'user_city': user_city,
+    }
+    return render(request, 'Warzone/dashboard.html', context)

@@ -39,6 +39,11 @@ urlpatterns = [
     path('search-page/', views.search_page, name='search_page'),
     path("live/", views.youtube_live, name="youtube_live"),# new
     path("robots.txt", views.robots_txt),
+    path('login/', views.user_login, name='user_login'),
+    path('logout/', views.user_logout, name='user_logout'),
+    path('signup/', views.user_signup, name='user_signup'),
+    path('activate/<uidb64>/<token>/', views.activate_account, name='activate_account'),
+    path('dashboard/', views.user_dashboard, name='user_dashboard'),
     
     
 ]
