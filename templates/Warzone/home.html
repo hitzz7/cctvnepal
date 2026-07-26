@@ -11,10 +11,7 @@
 
 {% block content %}
 <div class="bg-image">
-    <video controls autoplay muted loop poster="{% static 'hh.png' %}">
-        <source src="{% static 'camera1.mp4' %}" type="video/mp4" alt="CCTV Nepal Background Video">
-        Your browser does not support the video tag.
-    </video>
+    <img src="{% static 'hh.png' %}" alt="CCTV Nepal Background Image">
     <div class="social-media">
         
         <a href="https://wa.me/9779813203132" target="_blank">
@@ -54,10 +51,10 @@
 
     
 <div class="products-section" style="margin-top:50px">
-    <h2>CCtV Cameras</h2>
+    <h2>Hikvision</h2>
     
     <div class="products-grid">
-        {% for product in products %}
+        {% for product in hikvision_products %}
         <a href="{% url 'store:product_detail' product.slug %}">
         <div class="card">
             <div class="image">
@@ -75,8 +72,34 @@
         </div>
         {% endfor %}
     </div>
-    <a href="{% url 'store:product' %}">
-        <button class="button" style="margin:40px auto;">View all Cameras</button>
+    <a href="{% url 'store:product' %}?brand=hikvision">
+        <button class="button" style="margin:40px auto;">View all Hikvision Cameras</button>
+    </a>
+</div>
+<div class="products-section" style="margin-top:50px">
+    <h2>Ezviz</h2>
+    
+    <div class="products-grid">
+        {% for product in ezviz_products %}
+        <a href="{% url 'store:product_detail' product.slug %}">
+        <div class="card">
+            <div class="image">
+                {% for image in product.images.all %}
+                    {% if image.is_feature %}
+                        
+                            <img src="{{ image.image.url }}" alt="{{ product.title }} Featured Image">
+                        
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <span class="title">{{ product.title|truncatewords:3 }}</span>
+
+            <span class="price">RS {{ product.price }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'store:product' %}?brand=ezviz">
+        <button class="button" style="margin:40px auto;">View all Ezviz Cameras</button>
     </a>
 </div>
 <section class="partners">
@@ -103,7 +126,7 @@
         <div class="service-text">
             <h3>Services for CCTV Installment</h3>
             <p>
-                Our services include CCTV cabling, camera installation and calibration, DVR/NVR setup, remote viewing via internet or 3G, and mobile monitoring for vehicles, ensuring comprehensive surveillance solutions for homes, businesses, and transport.
+                Our Services include CCTV surveillance systems, IP/HD camera installation, NVR/DVR solutions, video door phone systems, access control systems, time attendance solutions, intruder alarm systems, structured cabling and networking, fiber optic solutions, wireless networking solutions, annual maintenance contracts (AMC), system upgrades and technical support.
             </p>
             <a href="{% url 'store:services' %}">
               <button class="button">View our Services</button>
@@ -204,7 +227,7 @@
         <div class="service-text">
             <h3>About us</h3>
             <p>
-                CCTV NEPAL provides high-quality electronics and telecommunication solutions, offering trade, repair, and exceptional customer service. Known for innovation and reliability, it serves individuals, businesses, and organizations. Continuously updating its products, CCTV NEPAL aims to enhance modern lifestyles while building strong relationships and expanding its reach globally through trusted distribution networks.
+                CCTV NEPAL is a leading security and surveillance solutions provider in Nepal, specializing in the design, supply, installation, integration, and maintenance of advanced security systems. With an experienced team of engineers and certified technicians, we deliver customized security systems tailored to each client's needs. Our focus on quality, professionalism, and customer satisfaction has earned us the trust of organizations and individuals across Nepal.
             </p>
             <a href="{% url 'store:about' %}">
               <button class="button">More about Us</button>

@@ -18,7 +18,7 @@
 }
 
 .about-section h3 {
-    font-size: 72px;
+    font-size: 60px;
     font-family: "Calton", sans-serif;
     margin-bottom: 20px;
 }
@@ -53,6 +53,97 @@ h4 {
     font-family: 'Itronz', sans-serif;
     line-height: 1.6;
     margin-bottom: 100px;
+}
+
+.vision-values-section {
+    background-color: #f9f9f9;
+    padding: 60px 40px;
+    margin: 60px 0;
+    text-align: center;
+}
+
+.vision-values-section h2 {
+    font-size: 48px;
+    font-family: "Calton", sans-serif;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.vision-values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vision-values-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.vision-values-card h3 {
+    font-size: 28px;
+    font-family: "typo", sans-serif;
+    margin-bottom: 20px;
+    color: #0097b2;
+}
+
+.vision-values-card p,
+.vision-values-card ul {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+    font-family: 'Itronz', sans-serif;
+}
+
+.vision-values-card ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.vision-values-card li {
+    margin-bottom: 10px;
+}
+
+.industries-section {
+    padding: 60px 40px;
+    margin: 60px 0;
+    text-align: center;
+}
+
+.industries-section h2 {
+    font-size: 48px;
+    font-family: "Calton", sans-serif;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.industries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.industry-item {
+    background: linear-gradient(135deg, #0097b2, #0077c0);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Itronz', sans-serif;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.industry-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 151, 178, 0.3);
 }
 
 /* Partners section */
@@ -120,9 +211,54 @@ h4 {
         font-size: 36px;
     }
 
-    
+    .vision-values-section {
+        padding: 40px 20px;
+        margin: 40px 0;
+    }
 
-    
+    .vision-values-section h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .vision-values-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .vision-values-card {
+        padding: 20px;
+    }
+
+    .vision-values-card h3 {
+        font-size: 20px;
+    }
+
+    .vision-values-card p,
+    .vision-values-card ul {
+        font-size: 14px;
+    }
+
+    .industries-section {
+        padding: 40px 20px;
+        margin: 40px 0;
+    }
+
+    .industries-section h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .industries-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .industry-item {
+        padding: 15px;
+        font-size: 14px;
+    }
+
 }
 </style>
 
@@ -131,16 +267,63 @@ h4 {
     
     <div class="about-content">
         <div class="image">
-            <img src="{% static 'instal.jpg' %}" alt="About Us">
+            <img src="{% static 'cf.png' %}" alt="About Us">
         </div>
         <div class="text">
-            <h3>Who are CCTV Nepal?</h3>
-            <p>
-                Our mission is to deliver exceptional quality and ensure customer satisfaction. With a dedicated team and years of experience, we strive to make a positive impact in the industry.
-            </p>
+            <h3>Why Choose CCTV NEPAL?</h3>
+            <ul>
+                <li>Experienced and certified technical team</li>
+                <li>Quality products</li>
+                <li>Customized security solutions</li>
+                <li>Competitive pricing</li>
+                <li>Professional installation</li>
+                <li>Reliable after-sales support</li>
+                <li>Timely project completion</li>
+                <li>Customer-focused approach</li>
+            </ul>
+            <p>Our Mission: to provide reliable, innovative, and technology-driven security solutions that deliver exceptional customer satisfaction.</p>
         </div>
     </div>
 </div>
+
+<!-- Vision and Values Section -->
+<section class="services-section">
+    <h2>Our Vision & Values</h2>
+    <div class="service-box">
+        <img src="{% static 'Hikvision-Logo.jpg' %}" alt="Vision" class="service-image">
+        <div class="service-text">
+            <h3>Our Vision & Values</h3>
+            <p>
+                To become Nepal's most trusted and preferred provider of integrated security and surveillance solutions.
+            </p>
+            <ul>
+                <li>Integrity</li>
+                <li>Quality</li>
+                <li>Innovation</li>
+                <li>Customer satisfaction</li>
+                <li>Professionalism</li>
+                <li>Continuous improvement</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Industries We Serve Section -->
+<section class="industries-section">
+    <h2>Industries We Serve</h2>
+    <div class="industries-grid">
+        <div class="industry-item">Residential Buildings</div>
+        <div class="industry-item">Apartments & Housing Complexes</div>
+        <div class="industry-item">Corporate Offices</div>
+        <div class="industry-item">Banks & Financial Institutions</div>
+        <div class="industry-item">Hotels & Hospitality</div>
+        <div class="industry-item">Educational Institutions</div>
+        <div class="industry-item">Hospitals & Healthcare Facilities</div>
+        <div class="industry-item">Manufacturing Industries</div>
+        <div class="industry-item">Retail Stores & Shopping Complexes</div>
+        <div class="industry-item">Government Organizations</div>
+    </div>
+</section>
 
 <section class="partners">
   <h2>Our Partners</h2>
@@ -151,4 +334,5 @@ h4 {
     <img src="{% static 'hk.png' %}" alt="Partner 4">
   </div>
 </section>
+
 {% endblock %}

@@ -156,6 +156,30 @@
     .additional-images img:hover {
         transform: scale(1.05);
     }
+
+    .similar-products-section {
+        padding: 60px 20px;
+        margin-top: 40px;
+        background-color: #f9f9f9;
+    }
+
+    .similar-products-section h2 {
+        text-align: center;
+        font-size: 32px;
+        margin-bottom: 40px;
+        color: #333;
+        font-family: 'typo', sans-serif;
+    }
+
+    .similar-products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+        gap: 1em;
+        max-width: 1200px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
     @media (max-width: 480px) {
     .product-detail-section {
         flex-direction: column;
@@ -200,6 +224,20 @@
     .additional-images img {
         width: 45%;
         max-width: 120px;
+    }
+
+    .similar-products-section {
+        padding: 40px 15px;
+    }
+
+    .similar-products-section h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .similar-products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+        gap: 1em;
     }
 }
 
@@ -261,6 +299,30 @@
         </form>
     </div>
 </div>
+
+<!-- Similar Products Section -->
+{% if similar_products %}
+<section class="similar-products-section">
+    <h2>Similar Products</h2>
+    <div class="similar-products-grid">
+        {% for similar_product in similar_products %}
+        <a href="{% url 'store:product_detail' similar_product.slug %}">
+        <div class="card">
+            <div class="image">
+                {% for image in similar_product.images.all %}
+                    {% if image.is_feature %}
+                        <img src="{{ image.image.url }}" alt="{{ similar_product.title }} Featured Image">
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <span class="title">{{ similar_product.title|truncatewords:3 }}</span>
+            <span class="price">RS {{ similar_product.discount_price }}</span>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 <script>
     // Select main image
     const mainImage = document.getElementById('main-image');

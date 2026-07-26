@@ -792,6 +792,12 @@ h2{
 
 
     
+  .services-section {
+    text-align: center;
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f9fafc, #eef3f7);
+    font-family: 'Poppins', sans-serif;
+  }
     
     .services-section h2 {
         font-size: 46px;
@@ -919,7 +925,7 @@ h2{
     }
     
     .service-text p {
-        font-size: 24px;
+        font-size: 20px;
         line-height: 1.6;
         color: black;
         font-family: "robot", sans-serif;
@@ -1227,8 +1233,10 @@ h2{
     display: block; 
     z-index: 20; /* Ensure it's above the image */
     max-width: 80%;
-    margin-left:-750px;
-    margin-top:50px;
+    margin-left: -300px;
+    margin-top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
     
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to enhance readability */
 }
@@ -1452,16 +1460,17 @@ h2{
     padding-left: 1.25em;
     position: absolute;
     left: 0;
-    bottom: -60px;
+    bottom: 0;
     background: #00AC7C;
     color: #fff;
     height: 2.5em;
     width: 90%;
-    transition: all 80ms;
+    transition: opacity 0.3s ease;
     font-weight: 600;
     text-transform: uppercase;
     opacity: 0;
     text-align: center;
+    pointer-events: none;
 }
 
 .card .title {
@@ -1484,7 +1493,6 @@ h2{
 }
 
 .card:hover::after {
-    bottom: 0;
     opacity: 1;
 }
 
@@ -1666,6 +1674,12 @@ h2{
     .products-section {
         padding: 20px 10px; /* Adjust padding for mobile */
     }
+
+    .services-section {
+        margin-bottom: 40px;
+    }
+
+    
 }
 
 @media screen and (max-width: 480px) {
@@ -2212,8 +2226,11 @@ hr{
     }
 }
 
+
+
+
 .pricing-section {
-  margin:80px 0px;
+  margin: 100px 0px 80px 0px;
   text-align: center;
   padding: 80px 20px;
   background: linear-gradient(135deg, #f9fafc, #eef3f7);

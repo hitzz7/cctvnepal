@@ -28,17 +28,30 @@ from django.core.mail import send_mail
 def home(request):
     
     categories = Category.objects.all()
-    products = Product.objects.all()[:4]
     projects = Project.objects.all()[:4]
     packages = Package.objects.all()
     
+    # Get Hikvision products
     try:
         hikvision_brand = Brand.objects.get(name__iexact="Hikvision")
-        products = Product.objects.filter(brand=hikvision_brand)[:4]
+        hikvision_products = Product.objects.filter(brand=hikvision_brand)[:4]
     except Brand.DoesNotExist:
-        products = Product.objects.none()
+        hikvision_products = Product.objects.none()
+    
+    # Get Ezviz products
+    try:
+        ezviz_brand = Brand.objects.get(name__iexact="Ezviz")
+        ezviz_products = Product.objects.filter(brand=ezviz_brand)[:4]
+    except Brand.DoesNotExist:
+        ezviz_products = Product.objects.none()
         
-    return render(request,'Warzone/home.html',{'categories': categories,"packages": packages,'projects':projects,'products':products});
+    return render(request,'Warzone/home.html',{
+        'categories': categories,
+        'packages': packages,
+        'projects': projects,
+        'hikvision_products': hikvision_products,
+        'ezviz_products': ezviz_products
+    });
 
 
 def package_list(request):
@@ -130,7 +143,19 @@ def product_list(request):
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
     images = product.images.all()  # Uses the related_name 'images'
-    return render(request, 'Warzone/productdetail.html', {'product': product, 'images': images})
+    
+    # Get similar products from the same category (excluding current product)
+    similar_products = Product.objects.filter(
+        category=product.category,
+        is_active=True
+    ).exclude(id=product.id)[:4]
+    
+    context = {
+        'product': product,
+        'images': images,
+        'similar_products': similar_products
+    }
+    return render(request, 'Warzone/productdetail.html', context)
 
 def services(request):
     return render(request, 'Warzone/services.html')
