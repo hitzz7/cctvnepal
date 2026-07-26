@@ -9,7 +9,10 @@ class ProductImageInline(admin.TabularInline):  # You can use StackedInline for 
 
 # Customize the Project admin
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ProductImageInline] 
+    inlines = [ProductImageInline]
+    list_display = ('title', 'category', 'brand', 'price', 'is_active', 'stock')
+    list_filter = ('category', 'brand', 'is_active')
+    search_fields = ('title', 'description', 'category__name', 'brand__name')
     # Include the ProjectImage inline in the Project admin
 class ProjectImageInline(admin.TabularInline):  # You can use StackedInline for a different layout
     model = ProjectImage
