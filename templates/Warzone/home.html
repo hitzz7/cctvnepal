@@ -11,7 +11,7 @@
 
 {% block content %}
 <div class="bg-image">
-    <img src="{% static 'hh.png' %}" alt="CCTV Nepal Background Image">
+    <img src="{% if hero_image != 'hh.png' %}{{ hero_image.url }}{% else %}{% static 'hkcctv1.jpeg' %}{% endif %}" alt="CCTV Nepal Background Image">
     <div class="social-media">
         
         <a href="https://wa.me/9779813203132" target="_blank">
@@ -20,7 +20,7 @@
         
         
     </div>
-    <div class="text-overlay">
+    <!-- <div class="text-overlay">
         
           <div class="google-review">
             <span class="rating-text">Excellent 4.9 out of 5</span>
@@ -43,12 +43,93 @@
         <div class="sales-label"><i class="fas fa-shield-alt" style="color:silver; margin-right:8px;"></i> Trusted by 100+ Business</div>
         
         
-    </div>
-    <div class="bottom-left-text">
-        <p>CCTV Nepal </p>
-    </div>
+    </div> -->
+    
 </div>
 
+
+<section class="shop-by-category">
+  <div class="category-header">
+    <h2>Shop by Category</h2>
+    <div class="category-controls">
+      <button class="nav-button swiper-button-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+      <button class="nav-button swiper-button-next">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+      <button class="view-all-button" id="viewAllButton">View all</button>
+    </div>
+  </div>
+
+  <div class="category-slider">
+    <div class="swiper category-swiper">
+      <div class="swiper-wrapper category-swiper-wrapper">
+        <a href="{% url 'store:product' %}" class="swiper-slide category-card">
+          <div class="category-card-image">
+            <img src="{% static 'all-categories.png' %}" alt="All Categories">
+          </div>
+          <span class="category-card-title">All</span>
+        </a>
+        {% for category in categories %}
+        <a href="{% url 'store:product' %}?category={{ category.id }}" class="swiper-slide category-card">
+          <div class="category-card-image">
+            {% if category.image %}
+              <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            {% else %}
+              <img src="{% static 'default-category.png' %}" alt="{{ category.name }}">
+            {% endif %}
+          </div>
+          <span class="category-card-title">{{ category.name }}</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Category Popup Modal -->
+<div class="category-popup-overlay" id="categoryPopupOverlay"></div>
+<div class="category-popup" id="categoryPopup">
+  <div class="category-popup-header">
+    <h3>All Categories</h3>
+    <button class="close-popup-button" id="closePopupButton">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <div class="category-popup-content">
+    <ul class="category-list">
+      <li class="category-list-item">
+        <a href="{% url 'store:product' %}">
+          <div class="category-list-item-image">
+            <img src="{% static 'all-categories.png' %}" alt="All Categories">
+          </div>
+          <span class="category-list-item-name">All</span>
+        </a>
+      </li>
+      {% for category in categories %}
+      <li class="category-list-item">
+        <a href="{% url 'store:product' %}?category={{ category.id }}">
+          <div class="category-list-item-image">
+            {% if category.image %}
+              <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            {% else %}
+              <img src="{% static 'default-category.png' %}" alt="{{ category.name }}">
+            {% endif %}
+          </div>
+          <span class="category-list-item-name">{{ category.name }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
     
 <div class="products-section" style="margin-top:50px">
     <h2>Hikvision</h2>
@@ -169,6 +250,28 @@
   </div>
 </section>
 
+<section class="pricing-section">
+  <h2>CCTV Installation Packages</h2>
+  <div class="pricing-container">
+    
+    {% for package in packages %}
+      <div class="pricing-card {% if package.featured %}featured{% endif %}">
+        <h3>{{ package.name }}</h3>
+        <p class="price">Rs {{ package.price }}<span> / {{ package.billing_type|default:"one-time" }}</span></p>
+        <ul>
+          {% for line in package.features.splitlines %}
+            {% if line %}
+              <li>{{ line }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <a href="{% url 'store:contact' %}" class="btn">Contact Us</a>
+      </div>
+    {% endfor %}
+
+  </div>
+</section>
+
 <section class="t-section">
   <h2>What Our Clients Say</h2>
   <div class="t-carousel-wrapper">
@@ -220,41 +323,11 @@
     <button class="next-btn" type="button">&#10095;</button>
   </div>
 </section>
-<div class="services-section">
-    <h2>About us</h2>
-    <div class="service-box">
-        <img src="{% static 'cf.png' %}" alt="CCTV Nepal logo" class="service-image">
-        <div class="service-text">
-            <h3>About us</h3>
-            <p>
-                CCTV NEPAL is a leading security and surveillance solutions provider in Nepal, specializing in the design, supply, installation, integration, and maintenance of advanced security systems. With an experienced team of engineers and certified technicians, we deliver customized security systems tailored to each client's needs. Our focus on quality, professionalism, and customer satisfaction has earned us the trust of organizations and individuals across Nepal.
-            </p>
-            <a href="{% url 'store:about' %}">
-              <button class="button">More about Us</button>
-            </a>
-        </div>
-    </div>
-<section class="pricing-section">
-  <h2>CCTV Installation Packages</h2>
-  <div class="pricing-container">
+<!-- <div class="banner">
+    <img src="{% static 'hkb1.png' %}" alt="Banner image">
     
-    {% for package in packages %}
-      <div class="pricing-card {% if package.featured %}featured{% endif %}">
-        <h3>{{ package.name }}</h3>
-        <p class="price">Rs {{ package.price }}<span> / {{ package.billing_type|default:"one-time" }}</span></p>
-        <ul>
-          {% for line in package.features.splitlines %}
-            {% if line %}
-              <li>{{ line }}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-        <a href="{% url 'store:contact' %}" class="btn">Contact Us</a>
-      </div>
-    {% endfor %}
+  </div> -->
 
-  </div>
-</section>
 
 
     
@@ -363,7 +436,20 @@
 </section>
 
     
-   
+   <div class="services-section">
+    <h2>About us</h2>
+    <div class="service-box">
+        <img src="{% static 'about.jpeg' %}" alt="CCTV Nepal logo" class="service-image" style="width: 60%; height: auto;">
+        <div class="service-text">
+            <h3>About us</h3>
+            <p>
+                CCTV NEPAL is a leading security and surveillance solutions provider in Nepal, specializing in the design, supply, installation, integration, and maintenance of advanced security systems. With an experienced team of engineers and certified technicians, we deliver customized security systems tailored to each client's needs. Our focus on quality, professionalism, and customer satisfaction has earned us the trust of organizations and individuals across Nepal.
+            </p>
+            <a href="{% url 'store:about' %}">
+              <button class="button">More about Us</button>
+            </a>
+        </div>
+    </div>
     
     
 </div>

@@ -15,12 +15,12 @@ class Category(MPTTModel):
         max_length=255,
         unique=True,
     )
-    
-    
-    
+
+    image = models.ImageField(upload_to='categories/', blank=True, null=True)
+
     parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
     is_active = models.BooleanField(default=True)
-    
+
 
     class MPTTMeta:
         order_insertion_by = ["name"]
@@ -28,8 +28,8 @@ class Category(MPTTModel):
     class Meta:
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
-        
-        
+
+
     def get_absolute_url(self):
         return reverse("store:product") + f"?category={self.id}"
 
@@ -55,12 +55,12 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     slug = models.SlugField(max_length=255,blank=True, null=True)
     date_created = models.DateField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now=True) 
+    date_updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-    stock = models.PositiveIntegerField(default=0) 
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    stock = models.PositiveIntegerField(default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     on_sale = models.BooleanField(default=False)
-    discount_price = models.DecimalField(max_digits=10, decimal_places=2,null=True)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     pdf_document = models.FileField(upload_to='product_pdfs/', blank=True, null=True)  
     
     
@@ -164,3 +164,14 @@ class Package(models.Model):
 
     def __str__(self):
         return f"{self.name} - Rs {self.price}"
+
+
+class SiteSettings(models.Model):
+    hero_image = models.ImageField(upload_to='hero/', blank=True, null=True)
+    
+    class Meta:
+        verbose_name = "Site Settings"
+        verbose_name_plural = "Site Settings"
+    
+    def __str__(self):
+        return "Site Configuration"

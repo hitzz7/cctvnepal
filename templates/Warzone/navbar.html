@@ -60,14 +60,14 @@
 <body>
     <div class="discount-banner">
         <div class="banner-message">Welcome to CCTV  Nepal</div>
-        <div class="banner-message">15 percent discount on all products</div>
+        
         
         <div class="banner-message">Warning you are under video survalance</div>
     </div>
     <header class="header">
         <div class="logo">
-            <a href="{% url 'store:home' %}" class="logo-text">
-                CCTV Nepal
+            <a href="{% url 'store:home' %}">
+                <img src="{% static 'hkcctv.jpeg' %}" alt="CCTV Nepal Logo" class="logo-image">
             </a>
         </div>
         <nav>
@@ -121,6 +121,7 @@
             <div></div>
         </div>
     </header>
+    <div id="mobile-menu-overlay"></div>
     <div id="cart-overlay"></div>
         <div id="cart-drawer">
         <div class="cart-header">
@@ -277,61 +278,72 @@
             lastScroll = currentScroll;
         });
     });
-    
+
 </script>
 <script>
-    const productsGrid = document.querySelector('.products-grid');
-    let isTouching = false;
-    let startX, scrollLeft;
-
-    productsGrid.addEventListener('touchstart', (e) => {
-        isTouching = true;
-        startX = e.touches[0].pageX - productsGrid.offsetLeft;
-        scrollLeft = productsGrid.scrollLeft;
-    });
-
-    productsGrid.addEventListener('touchend', () => {
-        isTouching = false;
-    });
-
-    productsGrid.addEventListener('touchmove', (e) => {
-        if (!isTouching) return;
-        e.preventDefault();
-        const x = e.touches[0].pageX - productsGrid.offsetLeft;
-        const walk = (x - startX) * 3; // Scroll speed
-        productsGrid.scrollLeft = scrollLeft - walk;
-    });
-    
+    // Hamburger menu functionality - works on all pages
     const hamburger = document.getElementById('hamburger');
     const navbar = document.getElementById('navbar');
     const body = document.body;
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
-    hamburger.addEventListener('click', function () {
-        navbar.classList.toggle('show');
+    if (hamburger && navbar && mobileMenuOverlay) {
+        hamburger.addEventListener('click', function () {
+            navbar.classList.toggle('show');
+            mobileMenuOverlay.classList.toggle('active');
 
-        // Toggle scrolling
-        if (navbar.classList.contains('show')) {
-            header.style.backgroundColor = 'white';   // Change header color (example: light gray)
-        } else {
-            header.style.backgroundColor = ''; // Reset header color
-        }
-        
-        if (navbar.classList.contains('show')) {
-            
-            body.style.overflow = 'hidden'; // Disable scrolling
-        } else {
-            body.style.overflow = ''; // Re-enable scrolling
-        }
-    });
+            // Toggle scrolling
+            if (navbar.classList.contains('show')) {
+                header.style.backgroundColor = 'white';
+                body.style.overflow = 'hidden';
+            } else {
+                header.style.backgroundColor = '';
+                body.style.overflow = '';
+            }
+        });
 
+        // Close navbar when clicking outside or on overlay
+        window.addEventListener('click', function (event) {
+            if (!navbar.contains(event.target) && !hamburger.contains(event.target)) {
+                navbar.classList.remove('show');
+                mobileMenuOverlay.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
 
-    // Close navbar when clicking outside
-    window.addEventListener('click', function (event) {
-        if (!navbar.contains(event.target) && !hamburger.contains(event.target)) {
+        // Close navbar when clicking on overlay
+        mobileMenuOverlay.addEventListener('click', function () {
             navbar.classList.remove('show');
-            body.style.overflow = ''; // Re-enable scrolling
-        }
-    });
+            mobileMenuOverlay.classList.remove('active');
+            body.style.overflow = '';
+        });
+    }
+</script>
+<script>
+    // Products grid touch scrolling - only on pages with products-grid
+    const productsGrid = document.querySelector('.products-grid');
+    if (productsGrid) {
+        let isTouching = false;
+        let startX, scrollLeft;
+
+        productsGrid.addEventListener('touchstart', (e) => {
+            isTouching = true;
+            startX = e.touches[0].pageX - productsGrid.offsetLeft;
+            scrollLeft = productsGrid.scrollLeft;
+        });
+
+        productsGrid.addEventListener('touchend', () => {
+            isTouching = false;
+        });
+
+        productsGrid.addEventListener('touchmove', (e) => {
+            if (!isTouching) return;
+            e.preventDefault();
+            const x = e.touches[0].pageX - productsGrid.offsetLeft;
+            const walk = (x - startX) * 3;
+            productsGrid.scrollLeft = scrollLeft - walk;
+        });
+    }
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {

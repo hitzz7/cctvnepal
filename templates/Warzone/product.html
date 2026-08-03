@@ -3,244 +3,99 @@
 
 {% block title %}Our Products{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+{% endblock %}
+
 {% block content %}
 <style>
-  .products-wrapper {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    max-width: 1200px;
-    margin: 100px 50px 100px 50px;
-    gap: 30px;
-    padding: 0 20px;
-    align-items: start;
-  }
-
-  .category-sidebar {
-  width: 320px;
-  background: #fff;
-  padding: 25px 25px 0px 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  font-family: "Poppins", sans-serif;
-  transition: all 0.3s ease;
-  height: fit-content;
-}
-
-  .category-sidebar h2 {
-    margin-bottom: 12px;
-    font-size: 30px;
-    font-weight: bold;
-  }
-
-  .category-sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 0;
-  }
-
-  .category-sidebar li {
-    margin-bottom: 8px;
-    font-size: 18px;
-    font-family:"typo",sans-serif;
-  }
-
-  .category-sidebar li:last-child {
-    margin-bottom: 0;
-  }
-
-  .category-sidebar a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    font-size: 20px;
-    font-family:"typo",sans-serif;
-  }
-
-  .category-sidebar a:hover {
-    color: #0097b2;
-  }
-
-  .products-section {
-    flex: 1;
-  }
-
-  .products-section h2 {
-    font-size: 48px;
-    margin-bottom: 20px;
-  }
-
-  .products-grid1 {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 150px;
-  }
-  .child-category {
-  list-style: none;
-  margin: 8px 0 0 25px;
-  padding-left: 10px;
-  margin-bottom: 0;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.child-category li {
-  margin-bottom: 6px;
-}
-
-.child-category li:last-child {
-  margin-bottom: 0;
-}
-.child-category a {
-  
-  font-size: 18px;
-}
-.child-link {
-  text-decoration: none;
-  color: #555;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.3s ease;
-}
-
-.child-link:hover {
-  color: #0097b2;
-}
-
-
-  .card {
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    padding: 10px;
-    text-align: center;
-    transition: 0.3s;
-    cursor: pointer;
-  }
-
-  .card:hover {
-    transform: translateY(-5px);
-  }
-
-  .category-sidebar a.active-category {
-    font-weight: bold;
-    color: black;  /* you can also change color */
-}
-
-  .card .image img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
-
-  .title {
-    font-weight: bold;
-    margin-top: 10px;
-    display: block;
-    font-size: 16px;
-  }
-
-  .price {
-    color: #0097b2;
-    font-size: 15px;
-    margin-top: 5px;
-    display: block;
-  }
-
-  /* Existing 768px responsive */
-@media (max-width: 768px) {
-    .products-wrapper {
-        flex-direction: column;
-        margin: 50px 20px; /* reduce margin on tablet */
-        gap: 20px;
-    }
-
-    .category-sidebar {
-        width: 100%;
-    }
-
-    .products-grid1 {
-        gap: 50px; /* reduce gap between cards */
-    }
-}
-
-/* Display products below categories list on mobile */
-@media (max-width: 480px) {
-    .products-wrapper {
-        display: block;
-    }
-
-    .category-sidebar {
-        width: 100%;
-        order: 0;
-    }
-
-    .products-section {
-        width: 100%;
-        order: 1;
-    }
-    .products-grid1 {
-        gap: 40px; /* reduce gap between cards */
-        margin-left:-50px; /* move slightly left */
-    }
-}
 
 
 </style>
-<section class="partners">
-  <h2>Our Partners</h2>
-  <div class="partners-logos" style="margin:auto;">
-    <a href="{% url 'store:product' %}?brand=hikvision">
-      <img src="{% static 'hk.png' %}" alt="Hikvision">
-    </a>
-    <a href="{% url 'store:product' %}?brand=ezviz">
-      <img src="{% static 'ezvis.png' %}" alt="Ezviz">
-    </a>
-    <a href="{% url 'store:product' %}?brand=hikvision">
-      <img src="{% static 'hk.png' %}" alt="Hikvision">
-    </a>
-    <a href="{% url 'store:product' %}?brand=HiLook">
-      <img src="{% static 'hilook.avif' %}" alt="HiLook">
-    </a>
+
+<!-- Shop by Category Section -->
+<section class="shop-by-category">
+  <div class="category-header">
+    <h2>Shop by Category</h2>
+    <div class="category-controls">
+      <button class="nav-button swiper-button-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+      <button class="nav-button swiper-button-next">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+      <button class="view-all-button" id="viewAllButton">View all</button>
+    </div>
+  </div>
+
+  <div class="category-slider">
+    <div class="swiper category-swiper">
+      <div class="swiper-wrapper category-swiper-wrapper">
+        <a href="{% url 'store:product' %}" class="swiper-slide category-card">
+          <div class="category-card-image">
+            <img src="{% static 'all-categories.png' %}" alt="All Categories">
+          </div>
+          <span class="category-card-title">All</span>
+        </a>
+        {% for category in categories %}
+        <a href="{% url 'store:product' %}?category={{ category.id }}" class="swiper-slide category-card">
+          <div class="category-card-image">
+            {% if category.image %}
+              <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            {% else %}
+              <img src="{% static 'default-category.png' %}" alt="{{ category.name }}">
+            {% endif %}
+          </div>
+          <span class="category-card-title">{{ category.name }}</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </section>
-<div class="products-wrapper">
-  <!-- Sidebar -->
-  <div class="category-sidebar">
-    <h2>Categories</h2>
-      <ul>
-  <li>
-    <a href="{% url 'store:product' %}" 
-       class="{% if not selected_category %}active-category{% endif %}">
-      All
-    </a>
-  </li>
 
-  {% for category in categories %}
-    <li>
-      <a href="{% url 'store:product' %}?category={{ category.id }}" 
-         class="{% if selected_category and selected_category.id == category.id %}active-category{% endif %}">
-        {{ category.name }}
-      </a>
-
-      {% if selected_category and selected_category.id == category.id and child_categories %}
-        <ul class="child-category">
-          {% for child in child_categories %}
-            <li>
-              <a href="{% url 'store:product' %}?category={{ child.id }}"
-                 class="{% if request.GET.category == child.id|stringformat:"s" %}active-category{% endif %}">
-                {{ child.name }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    </li>
-  {% endfor %}
-</ul>
-
+<!-- Category Popup Modal -->
+<div class="category-popup-overlay" id="categoryPopupOverlay"></div>
+<div class="category-popup" id="categoryPopup">
+  <div class="category-popup-header">
+    <h3>All Categories</h3>
+    <button class="close-popup-button" id="closePopupButton">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
   </div>
+  <div class="category-popup-content">
+    <ul class="category-list">
+      <li class="category-list-item">
+        <a href="{% url 'store:product' %}">
+          <div class="category-list-item-image">
+            <img src="{% static 'all-categories.png' %}" alt="All Categories">
+          </div>
+          <span class="category-list-item-name">All</span>
+        </a>
+      </li>
+      {% for category in categories %}
+      <li class="category-list-item">
+        <a href="{% url 'store:product' %}?category={{ category.id }}">
+          <div class="category-list-item-image">
+            {% if category.image %}
+              <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            {% else %}
+              <img src="{% static 'default-category.png' %}" alt="{{ category.name }}">
+            {% endif %}
+          </div>
+          <span class="category-list-item-name">{{ category.name }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 
   <!-- Products -->
   <div class="products-section">
@@ -265,5 +120,81 @@
     </div>
   </div>
 </div>
+<section class="partners">
+  <h2>Our Partners</h2>
+  <div class="partners-logos" style="margin:auto;">
+    <a href="{% url 'store:product' %}?brand=hikvision">
+      <img src="{% static 'hk.png' %}" alt="Hikvision">
+    </a>
+    <a href="{% url 'store:product' %}?brand=ezviz">
+      <img src="{% static 'ezvis.png' %}" alt="Ezviz">
+    </a>
+    <a href="{% url 'store:product' %}?brand=hikvision">
+      <img src="{% static 'hk.png' %}" alt="Hikvision">
+    </a>
+    <a href="{% url 'store:product' %}?brand=HiLook">
+      <img src="{% static 'hilook.avif' %}" alt="HiLook">
+    </a>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const categorySwiper = new Swiper('.category-swiper', {
+    slidesPerView: 8,
+    spaceBetween: 28,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 3,
+        spaceBetween: 15,
+      },
+      480: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 6,
+        spaceBetween: 24,
+      },
+      1024: {
+        slidesPerView: 8,
+        spaceBetween: 28,
+      },
+    },
+  });
+
+  // Category Popup Modal
+  const viewAllButton = document.getElementById('viewAllButton');
+  const categoryPopup = document.getElementById('categoryPopup');
+  const categoryPopupOverlay = document.getElementById('categoryPopupOverlay');
+  const closePopupButton = document.getElementById('closePopupButton');
+
+  function openPopup() {
+    categoryPopup.classList.add('active');
+    categoryPopupOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    categoryPopup.classList.remove('active');
+    categoryPopupOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  viewAllButton.addEventListener('click', openPopup);
+  closePopupButton.addEventListener('click', closePopup);
+  categoryPopupOverlay.addEventListener('click', closePopup);
+
+  // Close popup on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closePopup();
+    }
+  });
+</script>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 # admin.py
 from django.contrib import admin
 from .models import Category, Product, ProductImage,StartaProject,ProjectImage,Project,Brand
-from .models import City, Order, OrderItem,Package
+from .models import City, Order, OrderItem,Package,SiteSettings
 # Define an inline class for ProjectImage
 class ProductImageInline(admin.TabularInline):  # You can use StackedInline for a different layout
     model = ProductImage
@@ -25,7 +25,7 @@ class ProjectAdmin(admin.ModelAdmin):
 # Register your models
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'parent')
+    list_display = ('name', 'parent', 'image')
     list_filter = ('parent',)
     search_fields = ('name',)
     
@@ -54,3 +54,12 @@ class OrderAdmin(admin.ModelAdmin):
 class CityAdmin(admin.ModelAdmin):
     list_display = ('name', 'delivery_charge')
     search_fields = ('name',)
+
+# Admin for SiteSettings
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        # Only allow one instance
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)

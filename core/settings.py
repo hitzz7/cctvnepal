@@ -135,19 +135,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # settings.py
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'mail.cctvnepal.com.np'
-# EMAIL_PORT = 465
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'info@cctvnepal.com.np' 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'mail.cctvnepal.com.np'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'najus777@gmail.com'  # Your Gmail email address
-EMAIL_HOST_PASSWORD = 'ugck woat fali zlke'  # Gmail App Password (not your Gmail password)
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'info@cctvnepal.com.np' 
+EMAIL_HOST_PASSWORD = 'cctvNep@l'   # the password you set in cPanel
+DEFAULT_FROM_EMAIL = 'info@cctvnepal.com.np'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'najus777@gmail.com'  # Your Gmail email address
+# EMAIL_HOST_PASSWORD = 'ugck woat fali zlke'  # Gmail App Password (not your Gmail password)
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # Default primary key field type
@@ -161,5 +164,5 @@ TWILIO_WHATSAPP_NUMBER = "whatsapp:+14155238886"  # Twilio sandbox number
 MY_WHATSAPP_NUMBER = "9779818326491"  
 
 
-WHATSAPP_CLOUD_TOKEN = "EAAbljP0Aa4kBP3fa9E6dyoQCl2GbXNY1Mk857h0ZB7nyp57yzYDzbbiPml9TKZCQQZAppJw8rr11JgxFDgq6fJQAcNJTLVfJJvs0EmdUeK7ifkK5ULpZA4CdSv4m1enB1WLsLrtQzC7IZCEywhZBzAlhmIMtwShMmbZBXJicvkIDZCk6axFOaBvWDW4AuhjPdvTgJAAG6mpqacv1qHdqeZBSm8AGmftMvEo3E3enDZAGLF"
-WHATSAPP_PHONE_NUMBER_ID = "813919011802088"# Your personal WhatsApp number
+WHATSAPP_CLOUD_TOKEN = "EAAbljP0Aa4kBSORAQNBs2xapoZA6u9UPkcQ1p4QktxaRl1z6cZCGqoWEkHOZAt27S4ShUiD6IK1nBJX7aqeAwPaafvOYgx5cyKZACNls0Ngc52XUIgsOPtZCtDgMQ1hwbeGgonRby0bVBzeCs0fZAHR20NWzJFr7WD3c6VbCYZB7k13V0kMcF0pTe17NY4ZCa8RHgwZDZD"
+WHATSAPP_PHONE_NUMBER_ID = "1262359106954104"# Your personal WhatsApp number

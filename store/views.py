@@ -26,31 +26,37 @@ from django.core.mail import send_mail
 
 
 def home(request):
-    
+
     categories = Category.objects.all()
     projects = Project.objects.all()[:4]
     packages = Package.objects.all()
-    
+
     # Get Hikvision products
     try:
         hikvision_brand = Brand.objects.get(name__iexact="Hikvision")
         hikvision_products = Product.objects.filter(brand=hikvision_brand)[:4]
     except Brand.DoesNotExist:
         hikvision_products = Product.objects.none()
-    
+
     # Get Ezviz products
     try:
         ezviz_brand = Brand.objects.get(name__iexact="Ezviz")
         ezviz_products = Product.objects.filter(brand=ezviz_brand)[:4]
     except Brand.DoesNotExist:
         ezviz_products = Product.objects.none()
-        
+
+    # Get site settings for hero image
+    from .models import SiteSettings
+    site_settings = SiteSettings.objects.first()
+    hero_image = site_settings.hero_image if site_settings and site_settings.hero_image else 'hh.png'
+
     return render(request,'Warzone/home.html',{
         'categories': categories,
         'packages': packages,
         'projects': projects,
         'hikvision_products': hikvision_products,
-        'ezviz_products': ezviz_products
+        'ezviz_products': ezviz_products,
+        'hero_image': hero_image
     });
 
 
@@ -466,7 +472,7 @@ def checkout(request):
                 template_name="order_confirmation",
                 components=[
                     {
-                        "type": "body",
+                        "type": "body", 
                         "parameters": [
                             {"type": "text", "text": order.name},
                             {"type": "text", "text": str(order.id)},
