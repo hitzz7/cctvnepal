@@ -73,12 +73,10 @@
         <nav>
             <ul class="navbar" id="navbar">
                 <li><a href="{% url 'store:product' %}">Products</a></li>
-                
                 <li><a href="{% url 'store:services'%}">Service</a></li>
                 <li><a href="{% url 'store:work'%}">Projects</a></li>
                 <li><a href="{% url 'store:about'%}">About</a></li>
                 <li><a href="{% url 'store:contact'%}">Contact</a></li>
-                
             </ul>
         </nav>
         <ul class="navbar-icons">
@@ -121,7 +119,49 @@
             <div></div>
         </div>
     </header>
-    <div id="mobile-menu-overlay"></div>
+
+    <!-- Mobile Menu Popup (same style as category View all) -->
+    <div class="category-popup-overlay" id="mobileMenuOverlay"></div>
+    <div class="category-popup" id="mobileMenuPopup">
+        <div class="category-popup-header">
+            <h3>Menu</h3>
+            <button class="close-popup-button" id="closeMobileMenuButton" type="button" aria-label="Close menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="category-popup-content">
+            <ul class="category-list">
+                <li class="category-list-item">
+                    <a href="{% url 'store:product' %}">
+                        <span class="category-list-item-name">Products</span>
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="{% url 'store:services' %}">
+                        <span class="category-list-item-name">Service</span>
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="{% url 'store:work' %}">
+                        <span class="category-list-item-name">Projects</span>
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="{% url 'store:about' %}">
+                        <span class="category-list-item-name">About</span>
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="{% url 'store:contact' %}">
+                        <span class="category-list-item-name">Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <div id="cart-overlay"></div>
         <div id="cart-drawer">
         <div class="cart-header">
@@ -220,9 +260,6 @@
 
 </body>
 
-
-
-</style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const messages = document.querySelectorAll('.banner-message');
@@ -237,12 +274,15 @@
         messages[currentIndex].style.display = 'block';
         setInterval(showNextMessage, 8000); // Match the duration with the CSS animation
     });
-    document.getElementById('navbarDropdown').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default dropdown behavior
-        document.getElementById('drawer').classList.toggle('open');
-        document.getElementById('overlay').style.display = 'block'; // Show overlay
-    });
-    
+    const navbarDropdown = document.getElementById('navbarDropdown');
+    if (navbarDropdown) {
+        navbarDropdown.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('drawer').classList.toggle('open');
+            document.getElementById('overlay').style.display = 'block';
+        });
+    }
+
 </script>
 <script>
     const header = document.querySelector('.header');
@@ -281,43 +321,54 @@
 
 </script>
 <script>
-    // Hamburger menu functionality - works on all pages
-    const hamburger = document.getElementById('hamburger');
-    const navbar = document.getElementById('navbar');
-    const body = document.body;
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    document.addEventListener('DOMContentLoaded', function () {
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenuPopup = document.getElementById('mobileMenuPopup');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const closeMobileMenuButton = document.getElementById('closeMobileMenuButton');
 
-    if (hamburger && navbar && mobileMenuOverlay) {
-        hamburger.addEventListener('click', function () {
-            navbar.classList.toggle('show');
-            mobileMenuOverlay.classList.toggle('active');
+        if (!hamburger || !mobileMenuPopup || !mobileMenuOverlay) {
+            return;
+        }
 
-            // Toggle scrolling
-            if (navbar.classList.contains('show')) {
-                header.style.backgroundColor = 'white';
-                body.style.overflow = 'hidden';
-            } else {
-                header.style.backgroundColor = '';
-                body.style.overflow = '';
-            }
-        });
+        function openMobileMenu() {
+            mobileMenuPopup.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-        // Close navbar when clicking outside or on overlay
-        window.addEventListener('click', function (event) {
-            if (!navbar.contains(event.target) && !hamburger.contains(event.target)) {
-                navbar.classList.remove('show');
-                mobileMenuOverlay.classList.remove('active');
-                body.style.overflow = '';
-            }
-        });
-
-        // Close navbar when clicking on overlay
-        mobileMenuOverlay.addEventListener('click', function () {
-            navbar.classList.remove('show');
+        function closeMobileMenu() {
+            mobileMenuPopup.classList.remove('active');
             mobileMenuOverlay.classList.remove('active');
-            body.style.overflow = '';
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (mobileMenuPopup.classList.contains('active')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
         });
-    }
+
+        if (closeMobileMenuButton) {
+            closeMobileMenuButton.addEventListener('click', closeMobileMenu);
+        }
+
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+        mobileMenuPopup.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeMobileMenu();
+            }
+        });
+    });
 </script>
 <script>
     // Products grid touch scrolling - only on pages with products-grid
@@ -423,6 +474,69 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const categorySwiperEl = document.querySelector('.category-swiper');
+  if (categorySwiperEl) {
+    new Swiper('.category-swiper', {
+    slidesPerView: 8,
+    spaceBetween: 28,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 3,
+        spaceBetween: 15,
+      },
+      480: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 6,
+        spaceBetween: 24,
+      },
+      1024: {
+        slidesPerView: 8,
+        spaceBetween: 28,
+      },
+    },
+  });
+  }
+
+  // Category Popup Modal
+  const viewAllButton = document.getElementById('viewAllButton');
+  const categoryPopup = document.getElementById('categoryPopup');
+  const categoryPopupOverlay = document.getElementById('categoryPopupOverlay');
+  const closePopupButton = document.getElementById('closePopupButton');
+
+  if (viewAllButton && categoryPopup && categoryPopupOverlay && closePopupButton) {
+  function openPopup() {
+    categoryPopup.classList.add('active');
+    categoryPopupOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    categoryPopup.classList.remove('active');
+    categoryPopupOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  viewAllButton.addEventListener('click', openPopup);
+  closePopupButton.addEventListener('click', closePopup);
+  categoryPopupOverlay.addEventListener('click', closePopup);
+
+  // Close popup on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closePopup();
+    }
+  });
+  }
 </script>
 
 

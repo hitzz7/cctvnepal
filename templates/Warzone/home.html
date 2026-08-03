@@ -11,7 +11,11 @@
 
 {% block content %}
 <div class="bg-image">
-    <img src="{% static 'hkcctv1.jpeg' %}?v=2" alt="CCTV Nepal Background Image">
+    <picture>
+        <source media="(max-width: 480px)" srcset="{% static 'cctvmob.jpeg' %}?v=2">
+        <img src="{% static 'hkcctv1.jpeg' %}?v=2" alt="CCTV Nepal Background Image">
+    </picture>
+
     <div class="social-media">
         
         <a href="https://wa.me/9779813203132" target="_blank">
@@ -323,10 +327,10 @@
     <button class="next-btn" type="button">&#10095;</button>
   </div>
 </section>
-<!-- <div class="banner">
-    <img src="{% static 'hkb1.png' %}" alt="Banner image">
-    
-  </div> -->
+
+<a href="{% url 'store:product' %}?brand=hikvision" class="banner">
+    <img src="{% static 'hkbanner.jpg' %}" alt="View Hikvision products">
+</a>
 
 
 

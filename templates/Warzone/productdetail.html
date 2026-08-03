@@ -301,10 +301,9 @@
 </div>
 
 <!-- Similar Products Section -->
-{% if similar_products %}
-<section class="similar-products-section">
+<div class="products-section" style="margin-top:50px">
     <h2>Similar Products</h2>
-    <div class="similar-products-grid">
+    <div class="products-grid">
         {% for similar_product in similar_products %}
         <a href="{% url 'store:product_detail' similar_product.slug %}">
         <div class="card">
@@ -316,13 +315,15 @@
                 {% endfor %}
             </div>
             <span class="title">{{ similar_product.title|truncatewords:3 }}</span>
-            <span class="price">RS {{ similar_product.discount_price }}</span>
+            <span class="price">RS {{ similar_product.price }}</span>
         </div>
         </a>
         {% endfor %}
     </div>
-</section>
-{% endif %}
+    <a href="{% url 'store:product' %}?category={{ product.category.name }}">
+        
+    </a>
+</div>
 <script>
     // Select main image
     const mainImage = document.getElementById('main-image');

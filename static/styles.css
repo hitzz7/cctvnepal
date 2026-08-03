@@ -955,7 +955,7 @@ h2{
         justify-content: center;
         align-items: flex-start;
         padding: 20px 50px;
-        background-color: #f9f9f9; /* Light background color for contrast */
+         /* Light background color for contrast */
         text-align: left;
     }
     
@@ -1950,65 +1950,16 @@ h2{
     
 }
 @media (max-width: 768px) {
-    /* Adjust the header padding */
-
-
-    .navbar {
-        position: fixed;
-        top: 0;
-        right: -400px;
-        background-color: white;
-        flex-direction: column;
-        width: 300px;
-        height: 70vh;
-        overflow-y: auto;
-        transition: right 0.4s ease;
-        z-index: 2000;
-        padding-top: 0px;
-        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
-        display: flex;
-    }
-
-
-    .navbar.show {
-        right: 0;
-    }
-
-    .navbar li {
-        text-align: center;
-        padding: 20px 0;
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-    .navbar li a {
-        font-size: 18px;
-        font-weight: 500;
-    }
-
-    /* Mobile menu overlay */
-    #mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-       
-        z-index: 1999;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-    }
-
-    #mobile-menu-overlay.active {
-        opacity: 1;
-        visibility: visible;
+    nav {
+        display: none;
     }
 
     .hamburger {
         display: flex;
-        margin-left:30px;
+        position: relative;
+        z-index: 2003;
+        margin-left: 30px;
         margin-right: 40px;
-
     }
 
     .cta-button {
@@ -2691,6 +2642,7 @@ hr{
 }
 
  .banner {
+    display: block;
     position: relative;
     width: 100%;
     /* Scales smoothly between a min and max height across screen sizes */
@@ -2811,17 +2763,13 @@ hr{
   display: flex;
   gap: 28px;
 }
-
 .category-card {
+  position: relative;
   width: 140px;
   height: 140px;
   border-radius: 16px;
-  background: var(--color-bg-light);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+  overflow: hidden;
+  display: block;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.35s ease;
@@ -2830,34 +2778,41 @@ hr{
 
 .category-card:hover {
   transform: translateY(-6px) scale(1.02);
-  background: var(--color-white);
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.1);
 }
 
-.category-card:hover .category-card-image {
+.category-card:hover .category-card-image img {
   transform: scale(1.05);
 }
 
 .category-card-image {
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.35s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .category-card-image img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.35s ease;
 }
 
 .category-card-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 8px 12px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-dark);
+  color: #fff;
   text-align: center;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
+  box-sizing: border-box;
 }
 
 /* Category Popup Modal */

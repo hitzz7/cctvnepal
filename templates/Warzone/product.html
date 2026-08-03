@@ -138,63 +138,6 @@
   </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-  const categorySwiper = new Swiper('.category-swiper', {
-    slidesPerView: 8,
-    spaceBetween: 28,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 3,
-        spaceBetween: 15,
-      },
-      480: {
-        slidesPerView: 4,
-        spaceBetween: 20,
-      },
-      768: {
-        slidesPerView: 6,
-        spaceBetween: 24,
-      },
-      1024: {
-        slidesPerView: 8,
-        spaceBetween: 28,
-      },
-    },
-  });
 
-  // Category Popup Modal
-  const viewAllButton = document.getElementById('viewAllButton');
-  const categoryPopup = document.getElementById('categoryPopup');
-  const categoryPopupOverlay = document.getElementById('categoryPopupOverlay');
-  const closePopupButton = document.getElementById('closePopupButton');
-
-  function openPopup() {
-    categoryPopup.classList.add('active');
-    categoryPopupOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closePopup() {
-    categoryPopup.classList.remove('active');
-    categoryPopupOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  viewAllButton.addEventListener('click', openPopup);
-  closePopupButton.addEventListener('click', closePopup);
-  categoryPopupOverlay.addEventListener('click', closePopup);
-
-  // Close popup on escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      closePopup();
-    }
-  });
-</script>
 
 {% endblock %}
