@@ -23,6 +23,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import send_mail
+from .models import SiteSettings
 
 
 def home(request):
@@ -46,7 +47,7 @@ def home(request):
         ezviz_products = Product.objects.none()
 
     # Get site settings for hero image
-    from .models import SiteSettings
+    
     site_settings = SiteSettings.objects.first()
     hero_image = site_settings.hero_image if site_settings and site_settings.hero_image else 'hh.png'
 
