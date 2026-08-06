@@ -75,7 +75,7 @@
       <div class="swiper-wrapper category-swiper-wrapper">
         <a href="{% url 'store:product' %}" class="swiper-slide category-card">
           <div class="category-card-image">
-            <img src="{% static 'all-categories.png' %}" alt="All Categories">
+            <img src="{% static 'call.jpg' %}" alt="All Categories">
           </div>
           <span class="category-card-title">All</span>
         </a>
@@ -190,18 +190,18 @@
 
 <section class="slider" aria-roledescription="carousel" aria-label="Image gallery">
   <div class="slider__track" id="sliderTrack">
-    <div class="slider__slide">
+    <a href="{% url 'store:product_detail' slug='ae-dc2015-b1-dashcam' %}" class="slider__slide">
       <img src="{% static 's1.jpeg' %}" alt="Slide 1" loading="eager">
-    </div>
-    <div class="slider__slide">
+    </a>
+    <a href="{% url 'store:product_detail' slug='ae-dn2312-c4-1080p-hd-dashboard-camera' %}" class="slider__slide">
       <img src="{% static 's2.jpeg' %}" alt="Slide 2" loading="lazy">
-    </div>
-    <div class="slider__slide">
+    </a>
+    <a href="{% url 'store:product_detail' slug='hikvision-d5cseries-4k-interactive-dispaly-dsd5c86rbb-86' %}" class="slider__slide">
       <img src="{% static 's3.jpeg' %}" alt="Slide 3" loading="lazy">
-    </div>
-    <div class="slider__slide">
+    </a>
+    <a href="{% url 'store:product_detail' slug='ae-dc2015-b1-dashcam' %}" class="slider__slide">
       <img src="{% static 's4.jpeg' %}" alt="Slide 4" loading="lazy">
-    </div>
+    </a>
   </div>
   <button class="slider__arrow slider__arrow--prev" id="prevBtn" aria-label="Previous slide">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>

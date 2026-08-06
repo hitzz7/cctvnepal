@@ -191,11 +191,11 @@
                 <h4>Links
                     <div class="underline"><span></span></div>
                 </h4>
-                <a href="/home"><p>Cameras</p></a>
-                <a href="/work"><p>Services</p></a>
-                <a href="/service"><p>projects</p></a>
-                <a href="/about"><p>about</p></a>
-                <a href="/about"><p>contact</p></a>
+                <a href="{% url 'store:product' %}">Products</a>
+                <a href="{% url 'store:services'%}">Service</a>
+                <a href="{% url 'store:work'%}">Projects</a>
+                <a href="{% url 'store:about'%}">About</a>
+                <a href="{% url 'store:contact'%}">Contact</a>
             </div>
             <div class="col">
                 <h4>Office<div class="underline"><span></span></div></h4>
