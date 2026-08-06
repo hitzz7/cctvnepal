@@ -69,7 +69,7 @@ def package_detail(request, pk):
 
 def product(request):
     # Show only top-level categories
-    categories = Category.objects.filter(parent=None)
+    categories = Category.objects.all()
     brand_param = request.GET.get('brand')
     category_id = request.GET.get('category')
     selected_category = None
