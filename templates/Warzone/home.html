@@ -187,6 +187,121 @@
         <button class="button" style="margin:40px auto;">View all Ezviz Cameras</button>
     </a>
 </div>
+
+<section class="slider" aria-roledescription="carousel" aria-label="Image gallery">
+  <div class="slider__track" id="sliderTrack">
+    <div class="slider__slide">
+      <img src="{% static 's1.jpeg' %}" alt="Slide 1" loading="eager">
+    </div>
+    <div class="slider__slide">
+      <img src="{% static 's2.jpeg' %}" alt="Slide 2" loading="lazy">
+    </div>
+    <div class="slider__slide">
+      <img src="{% static 's3.jpeg' %}" alt="Slide 3" loading="lazy">
+    </div>
+    <div class="slider__slide">
+      <img src="{% static 's4.jpeg' %}" alt="Slide 4" loading="lazy">
+    </div>
+  </div>
+  <button class="slider__arrow slider__arrow--prev" id="prevBtn" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <button class="slider__arrow slider__arrow--next" id="nextBtn" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </button>
+ 
+  <div class="slider__dots" id="sliderDots"></div>
+  <div class="slider__counter" id="sliderCounter">1 / 4</div>
+</section>
+<script>
+(function () {
+  const track = document.getElementById('sliderTrack');
+  const slides = Array.from(track.children);
+  const dotsWrap = document.getElementById('sliderDots');
+  const counter = document.getElementById('sliderCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+ 
+  let index = 0;
+  const total = slides.length;
+  const AUTOPLAY_MS = 5000;
+  let autoplayTimer = null;
+ 
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'slider__dot' + (i === 0 ? ' is-active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+ 
+  function render() {
+    track.style.transform = 'translateX(' + (-index * 100) + '%)';
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
+    counter.textContent = (index + 1) + ' / ' + total;
+  }
+ 
+  function goTo(i) {
+    index = (i + total) % total;
+    render();
+    restartAutoplay();
+  }
+ 
+  function next() { goTo(index + 1); }
+  function prev() { goTo(index - 1); }
+ 
+  function startAutoplay() {
+    autoplayTimer = setInterval(next, AUTOPLAY_MS);
+  }
+  function stopAutoplay() {
+    clearInterval(autoplayTimer);
+  }
+  function restartAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+ 
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+ 
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+ 
+  // Pause on hover
+  const sliderEl = document.querySelector('.slider');
+  sliderEl.addEventListener('mouseenter', stopAutoplay);
+  sliderEl.addEventListener('mouseleave', startAutoplay);
+ 
+  // Touch swipe
+  let startX = 0;
+  let isDragging = false;
+  sliderEl.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+    stopAutoplay();
+  }, { passive: true });
+ 
+  sliderEl.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    const endX = e.changedTouches[0].clientX;
+    const diff = endX - startX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? prev() : next();
+    } else {
+      startAutoplay();
+    }
+    isDragging = false;
+  });
+ 
+  render();
+  startAutoplay();
+})();
+</script>
+
 <section class="partners">
   <h2>Our Partners</h2>
   <div class="partners-logos">
