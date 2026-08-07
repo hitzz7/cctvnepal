@@ -482,26 +482,35 @@ document.addEventListener("DOMContentLoaded", function() {
     new Swiper('.category-swiper', {
     slidesPerView: 8,
     spaceBetween: 28,
+    slidesPerGroup: 4,
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
+    },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
     },
     breakpoints: {
       320: {
         slidesPerView: 3,
         spaceBetween: 15,
+        slidesPerGroup: 2,
       },
       480: {
         slidesPerView: 4,
         spaceBetween: 20,
+        slidesPerGroup: 3,
       },
       768: {
         slidesPerView: 6,
         spaceBetween: 24,
+        slidesPerGroup: 4,
       },
       1024: {
         slidesPerView: 8,
         spaceBetween: 28,
+        slidesPerGroup: 4,
       },
     },
   });
