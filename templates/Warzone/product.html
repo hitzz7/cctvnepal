@@ -72,7 +72,7 @@
       <li class="category-list-item">
         <a href="{% url 'store:product' %}">
           <div class="category-list-item-image">
-            <img src="{% static 'all-categories.png' %}" alt="All Categories">
+            <img src="{% static 'call.jpg' %}" alt="All Categories">
           </div>
           <span class="category-list-item-name">All</span>
         </a>
@@ -109,7 +109,7 @@
               {% endif %}
             {% endfor %}
           </div>
-          <span class="title">{{ product.title|truncatewords:3 }}</span>
+          <span class="title">{{ product.title|truncatewords:1 }}</span>
 
           <span class="price">RS {{ product.price }}</span>
         </div>

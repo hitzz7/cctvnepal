@@ -1804,7 +1804,7 @@ h2{
     .logo img {
         max-height: 20px; /* Reduce size for smaller screens */
         margin-left: 60px;
-        transform:scale(4);
+        transform:scale(3);
     }
 
     
@@ -3164,7 +3164,10 @@ hr{
     }
 
     .title {
-      font-size: 14px;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .price {
