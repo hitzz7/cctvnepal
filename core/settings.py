@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*bd^&(4x&sx^%&xpa@k$$f^uq5nx)i3caue@j=18f7b9)mq&af'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.65','www.cctvnepal.com.np','cctvnepal.com.np','tsabinz.com']
 
@@ -161,7 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TWILIO_ACCOUNT_SID = "AC114a8f2d2e23e57329bf574d8d23bf62"
 TWILIO_AUTH_TOKEN = "d4b12e354d90e24d949a9575666fdbd4"
 TWILIO_WHATSAPP_NUMBER = "whatsapp:+14155238886"  # Twilio sandbox number
-MY_WHATSAPP_NUMBER = "9779818326491"  
+MY_WHATSAPP_NUMBER = "9779813203132"  
 
 
 WHATSAPP_CLOUD_TOKEN = "EAAbljP0Aa4kBSORAQNBs2xapoZA6u9UPkcQ1p4QktxaRl1z6cZCGqoWEkHOZAt27S4ShUiD6IK1nBJX7aqeAwPaafvOYgx5cyKZACNls0Ngc52XUIgsOPtZCtDgMQ1hwbeGgonRby0bVBzeCs0fZAHR20NWzJFr7WD3c6VbCYZB7k13V0kMcF0pTe17NY4ZCa8RHgwZDZD"
